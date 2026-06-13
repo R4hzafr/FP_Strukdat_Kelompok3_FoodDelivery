@@ -1,0 +1,13 @@
+order_id,restaurant_node,customer_node,deadline_menit,priority_level,status_order
+ORD001,R1,C1,15,Normal,Pending
+ORD002,R2,C2,20,Normal,Pending
+ORD003,R3,C3,25,Normal,Pending
+ORD004,R4,C4,18,High,Pending
+ORD005,R5,C5,22,Normal,Pending
+ORD006,R6,C6,17,Normal,Pending
+ORD007,R1,C7,30,Normal,Pending
+ORD008,R2,C8,19,High,Pending
+ORD009,R3,C9,28,Normal,Pending
+ORD010,R4,C10,16,Urgent,Pending
+ORD011,R5,C11,24,Normal,Pending
+ORD012,R6,C12,21,High,Pending

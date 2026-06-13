@@ -1,0 +1,26 @@
+node_id,node_type,nama_lokasi,latitude,longitude
+R1,Restaurant,Restoran Makan Enak,-7.250445,112.729857
+R2,Restaurant,Restoran Cepat Saji,-7.251234,112.730123
+R3,Restaurant,Rumah Makan Padang,-7.249876,112.731456
+R4,Restaurant,Kedai Burger Ceria,-7.252100,112.728900
+R5,Restaurant,Bakso Aloy,-7.250500,112.729500
+R6,Restaurant,Soto Ayam Tante Siti,-7.249200,112.730800
+C1,Customer,Pelanggan Budi,-7.248900,112.732100
+C2,Customer,Pelanggan Siti,-7.251500,112.727800
+C3,Customer,Pelanggan Ahmad,-7.250100,112.733200
+C4,Customer,Pelanggan Dewi,-7.249500,112.729200
+C5,Customer,Pelanggan Ricky,-7.252000,112.730500
+C6,Customer,Pelanggan Lina,-7.248500,112.728300
+C7,Customer,Pelanggan Bambang,-7.251800,112.732500
+C8,Customer,Pelanggan Ani,-7.249800,112.726900
+C9,Customer,Pelanggan Dion,-7.250600,112.731800
+C10,Customer,Pelanggan Eka,-7.251200,112.729100
+C11,Customer,Pelanggan Fitri,-7.248700,112.730200
+C12,Customer,Pelanggan Galih,-7.250900,112.728500
+S1,Simpang,Simpang Jl Raya Utama,-7.250000,112.730000
+S2,Simpang,Simpang Jl Sudirman,-7.249500,112.729000
+S3,Simpang,Simpang Jl Ahmad Yani,-7.251000,112.731000
+S4,Simpang,Simpang Jl Gatot Subroto,-7.248800,112.728000
+S5,Simpang,Simpang Jl Pemuda,-7.251500,112.732000
+S6,Simpang,Simpang Jl Diponegoro,-7.249200,112.727000
+S7,Simpang,Pusat Distribusi Utama,-7.252500,112.733000
