@@ -459,6 +459,17 @@ Untuk dataset ini: O(25+82) = O(107 operasi). Lebih cepat dari Dijkstra karena t
 
 ### Design Decision Log
 
+<img width="662" height="767" alt="image" src="https://github.com/user-attachments/assets/ecd876f9-6b2c-4cd6-87cd-a30c55f71c8f" />
+
+Keputusan desain pada sistem tidak hanya ditentukan berdasarkan kemudahan implementasi, tetapi juga mempertimbangkan efisiensi struktur data dan kesesuaian terhadap kebutuhan studi kasus. Graph direpresentasikan menggunakan Adjacency List karena lebih sesuai untuk graph sparse dan menghemat penggunaan memori dibanding Adjacency Matrix. 
+Untuk proses routing dipilih algoritma Dijkstra karena sistem menggunakan bobot waktu tempuh sehingga pencarian rute tidak cukup hanya menggunakan traversal biasa.
+Pengelolaan order dilakukan menggunakan MinHeap agar proses pemilihan order dapat mempertimbangkan prioritas dan deadline secara otomatis. 
+Sistem juga menggunakan HashSet untuk menyimpan jalan yang ditutup agar proses pengecekan status edge tetap cepat ketika Dijkstra dan BFS berjalan. 
+Dataset disimpan dalam format CSV agar seluruh anggota kelompok dapat memperbarui data tanpa harus mengubah source code.
+Selain itu, dipilih pendekatan Weighted Undirected Graph karena lebih sesuai untuk merepresentasikan jaringan jalan pada simulasi delivery. Node disimpan menggunakan HashMap agar pencarian berdasarkan ID efisien, sedangkan aplikasi dijalankan menggunakan Command Line Interface untuk menjaga fokus pengerjaan pada implementasi struktur data dibanding pengembangan antarmuka.
+
+
+
 ### Tracing
 
 ### Screenshot Hasil Program
