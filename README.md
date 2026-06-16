@@ -167,16 +167,15 @@ Graph direpresentasikan menggunakan Adjacency List dengan struktur data berikut 
 Map<String, List<Edge>> adjacencyList;
 ```
 Setiap key berupa nodeId (String), dan value-nya adalah List<Edge> yang berisi semua tetangga dari node tersebut beserta seluruh atribut jalannya. Selain adjacency list, graph juga menyimpan semua node dalam:
-```
 Map<String, Node> nodes;
-```
+
 Sehingga informasi lengkap suatu node (nama, tipe, koordinat) bisa diakses langsung dari nodeId-nya.
 Contoh representasi adjacency list pada dataset:
-```
 R1 (Restoran Makan Enak)   → S1(2m), R2(3m), C9(8m)
 S1 (Simpang Jl Raya Utama) → R1(2m), R2(2m), R5(2m), S2(2m), S3(3m), C1(4m)
 C1 (Pelanggan Budi)        → R2(5m), S1(4m), C2(3m)
-```<img width="934" height="578" alt="Screenshot 2026-06-16 165758" src="https://github.com/user-attachments/assets/8a9332d9-c454-4357-a2f0-14cf79721d0d" />
+
+<img width="934" height="578" alt="Screenshot 2026-06-16 165758" src="https://github.com/user-attachments/assets/8a9332d9-c454-4357-a2f0-14cf79721d0d" />
 
 #### 3.3 Penjelasan Node
 Node merepresentasikan titik-titik lokasi dalam jaringan pengantaran makanan. Setiap node memiliki 5 atribut yang didefinisikan dalam Node.java : <br>
