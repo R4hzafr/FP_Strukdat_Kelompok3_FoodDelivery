@@ -32,7 +32,7 @@ Hafara Firdausi, S. Kom, M.Kom
 10. What-if analysis
 11. Kesimpulan
 
--- 
+--- 
 
 ### Deskripsi Masalah
 
