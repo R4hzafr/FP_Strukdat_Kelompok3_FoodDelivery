@@ -2,6 +2,7 @@ package tree;
 
 import model.Order;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MinHeap {
     private ArrayList<Order> heap;
@@ -10,17 +11,19 @@ public class MinHeap {
         this.heap = new ArrayList<>();
     }
 
+    public List<Order> getAll() { return new ArrayList<>(heap); }
+
     // Tambah order ke heap
     public void enqueue(Order order) {
         heap.add(order);
         heapifyUp(heap.size() - 1);
-        System.out.println("✓ Order " + order.orderId + " ditambahkan ke antrian (Priority: " + order.priorityLevel + ")");
+        System.out.println("Order " + order.orderId + " ditambahkan ke antrian (Priority: " + order.priorityLevel + ")");
     }
 
     // Ambil order dengan prioritas tertinggi
     public Order dequeue() {
         if (isEmpty()) {
-            System.out.println("❌ Heap kosong!");
+            System.out.println("Heap kosong!");
             return null;
         }
         
@@ -104,8 +107,8 @@ public class MinHeap {
 
     // Handle VIP order yang masuk mendadak
     public void insertVIPOrder(Order vipOrder) {
-        System.out.println("\n⚠️  VIP ORDER MASUK MENDADAK: " + vipOrder.orderId);
+        System.out.println("\n  VIP ORDER MASUK MENDADAK: " + vipOrder.orderId);
         enqueue(vipOrder);
-        System.out.println("🚀 VIP Order diprioritaskan!");
+        System.out.println(" VIP Order diprioritaskan!");
     }
 }

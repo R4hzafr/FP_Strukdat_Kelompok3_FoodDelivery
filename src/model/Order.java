@@ -37,7 +37,7 @@ public class Order implements Comparable<Order> {
 
     @Override
     public String toString() {
-        return orderId + " | " + restaurantNode + " → " + customerNode + 
+        return orderId + " | " + restaurantNode + " -> " + customerNode + 
                " | Priority: " + priorityLevel + " | Deadline: " + deadlineMenit + " min";
     }
 }

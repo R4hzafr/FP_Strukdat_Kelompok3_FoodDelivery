@@ -37,7 +37,7 @@ public class Graph {
             }
         }
 
-        System.out.println("✓ Graph built: " + nodes.size()
+        System.out.println("Graph built: " + nodes.size()
                 + " nodes, " + countEdges() + " directed edges");
     }
 
@@ -61,13 +61,13 @@ public class Graph {
     public void closeEdge(String source, String destination) {
         closedEdges.add(edgeKey(source, destination));
         closedEdges.add(edgeKey(destination, source));
-        System.out.println("- Jalan ditutup: " + source + " ↔ " + destination);
+        System.out.println("- Jalan ditutup: " + source + " <-> " + destination);
     }
 
     public void openEdge(String source, String destination) {
         closedEdges.remove(edgeKey(source, destination));
         closedEdges.remove(edgeKey(destination, source));
-        System.out.println("+ Jalan dibuka: " + source + " ↔ " + destination);
+        System.out.println("+ Jalan dibuka: " + source + " <-> " + destination);
     }
 
     public void closeMacetEdges() {
@@ -91,7 +91,7 @@ public class Graph {
 
     public ShortestPathResult dijkstra(String startId, String endId) {
         if (!nodes.containsKey(startId) || !nodes.containsKey(endId)) {
-            System.out.println("❌ Node tidak ditemukan: " + startId + " atau " + endId);
+            System.out.println("[X] Node tidak ditemukan: " + startId + " atau " + endId);
             return null;
         }
 
@@ -269,7 +269,7 @@ public class Graph {
         for (String nodeId : sortedIds) {
             Node n = nodes.get(nodeId);
             String label = (n != null) ? n.namaLokasi : nodeId;
-            System.out.printf("%-4s %-28s → ", nodeId, "(" + label + ")");
+            System.out.printf("%-4s %-28s -> ", nodeId, "(" + label + ")");
 
             List<Edge> edges = adjacencyList.get(nodeId);
             if (edges == null || edges.isEmpty()) {
@@ -336,12 +336,12 @@ public class Graph {
                 Node   n     = nodes.get(id);
                 String label = (n != null) ? n.namaLokasi : id;
                 System.out.print("  " + id + " (" + label + ")");
-                if (i < path.size() - 1) System.out.print(" → ");
+                if (i < path.size() - 1) System.out.print(" -> ");
                 if ((i + 1) % 3 == 0 && i < path.size() - 1) System.out.println();
             }
             System.out.println();
             System.out.println("─".repeat(50));
-            System.out.printf("⏱  Total Waktu  : %d menit%n",   totalWaktu);
+            System.out.printf("+ Total Waktu  : %d menit%n",   totalWaktu);
             System.out.printf("+ Total Jarak  : %.2f km%n",     totalJarak);
             System.out.printf("+ Total Biaya  : Rp %,d%n",      totalBiaya);
             System.out.printf("+ Jumlah Stop  : %d node%n",     path.size());
