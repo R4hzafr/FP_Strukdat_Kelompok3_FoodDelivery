@@ -787,6 +787,42 @@ Hasil tracing menunjukkan bahwa mekanisme `closedEdges` bekerja konsisten pada B
 
 ### Screenshot Hasil Program
 
+#### Menu Utama Program
+
+```text
+╔══════════════════════════════════════════════════╗
+║             SISTEM FOOD DELIVERY                 ║
+╠══════════════════════════════════════════════════╣
+║ 1. Tambah Order                                  ║
+║ 2. Lihat Antrian Order                           ║
+║ 3. Cari Order                                    ║
+║ 4. Hapus Order                                   ║
+║ 5. Proses Order                                  ║
+║ 6. Cari Rute                                     ║
+║ 7. Tampilkan Peta Jaringan                       ║
+║ 8. Simulasi                                      ║
+║ 0. Keluar                                        ║
+╚══════════════════════════════════════════════════╝
+```
+
+---
+
+#### Menu Simulasi
+
+```text
+╔══════════════════════════════════════════════════╗
+║                  MENU SIMULASI                   ║
+╠══════════════════════════════════════════════════╣
+║ 1. Simulasi Order VIP                            ║
+║ 2. Simulasi Jalan Ditutup                        ║
+║ 3. Cek Keterhubungan (BFS)                       ║
+║ 4. Perbandingan Strategi Pengantaran            ║
+║ 0. Kembali                                       ║
+╚══════════════════════════════════════════════════╝
+```
+Screenshot lengkap terdapat di laporan.pdf
+
+
 ### Analisis Kompleksitas
 
 Bagian ini menyajikan analisis kompleksitas waktu dari seluruh operasi utama yang digunakan dalam sistem Food Delivery Route Optimizer. Analisis mencakup struktur data MinHeap, algoritma Graf (Dijkstra dan BFS), serta operasi pendukung lainnya.
@@ -1020,3 +1056,14 @@ Berdasarkan berbagai skenario yang diuji, dapat disimpulkan bahwa:
 6. Secara keseluruhan, desain Graph + MinHeap yang digunakan cukup robust dan scalable untuk simulasi pengantaran makanan berbasis jaringan jalan.
 
 ### Kesimpulan
+
+Proyek Food Delivery Route Optimizer berhasil membangun aplikasi berbasis Java murni yang mengintegrasikan struktur data Weighted Undirected Graph dengan representasi Adjacency List dan struktur MinHeap. Graph digunakan untuk memodelkan jaringan lokasi pengantaran, sedangkan MinHeap digunakan untuk mengatur antrean order berdasarkan prioritas dan deadline.
+
+Sistem ini mengimplementasikan fitur utama yang dibutuhkan, yaitu tambah order, lihat antrian, cari order, hapus order, proses order, cari rute, tampilkan peta jaringan, serta menu simulasi. Algoritma Dijkstra digunakan untuk mencari rute tercepat berdasarkan waktu tempuh, sedangkan BFS digunakan untuk mengecek keterhubungan antar lokasi, terutama ketika terdapat simulasi jalan yang ditutup.
+
+Hasil simulasi perbandingan strategi menunjukkan adanya trade-off dalam pengambilan keputusan pengantaran. Strategi prioritas ditambah deadline mendahulukan order penting seperti ORD010 yang berstatus Urgent, tetapi dapat membuat order Normal dengan deadline lebih cepat seperti ORD001 diproses lebih lambat. Strategi deadline tercepat lebih fokus pada batas waktu, sedangkan strategi jarak terdekat lebih efisien untuk perjalanan kurir, tetapi dapat menunda order dengan prioritas tinggi.
+
+Meskipun sistem sudah berjalan sesuai rancangan, masih terdapat beberapa keterbatasan. Dataset yang digunakan masih berskala kecil, yaitu 25 node dan 41 edge, sehingga belum menggambarkan kompleksitas jaringan jalan yang lebih besar. Selain itu, bobot waktu tempuh masih bersifat statis dan belum terhubung dengan data lalu lintas real-time. Sistem juga masih berbasis command-line interface sehingga visualisasi dan interaksi pengguna masih terbatas.
+
+Pengembangan ke depan dapat dilakukan dengan menambahkan algoritma A* sebagai alternatif pencarian rute berbasis heuristic, membuat GUI agar sistem lebih mudah digunakan, serta mengintegrasikan Maps API atau data lalu lintas real-time agar bobot waktu tempuh lebih dinamis. Dengan pengembangan tersebut, sistem dapat menjadi lebih realistis, interaktif, dan sesuai untuk skenario pengantaran makanan pada skala yang lebih besar.
+
