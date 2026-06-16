@@ -154,22 +154,57 @@ Node simpang merepresentasikan persimpangan jalan atau titik perantara dalam jar
 
 <img width="578" height="122" alt="Screenshot 2026-06-16 at 23 18 15" src="https://github.com/user-attachments/assets/1c464ec7-d321-4492-81c8-9d01f1ef81d9" />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Struktur Graph yang digunakan
+#### 3.1 Jenis Graph
+Sistem Food Delivery Route Optimizer menggunakan Weighted Undirected Graph, yaitu graf berbobot yang hubungan antar nodenya bersifat dua arah. Pemilihan jenis graf ini didasarkan pada karakteristik jaringan jalan nyata, di mana jalan yang menghubungkan dua titik lokasi umumnya dapat dilalui dari kedua arah dengan waktu tempuh yang sama.
+Tiga karakteristik utama graph yang digunakan:
+- Weighted (Berbobot): Setiap edge memiliki bobot berupa waktuTempuh dalam satuan menit. Bobot ini menjadi penentu utama dalam pencarian rute terbaik oleh algoritma Dijkstra. Tanpa bobot, semua jalan dianggap sama dan sistem tidak bisa membedakan mana rute yang lebih cepat.
+- Undirected (Dua Arah): Setiap edge berlaku untuk kedua arah perjalanan. Jika ada jalan dari R1 ke S1, maka secara otomatis ada juga jalan dari S1 ke R1 dengan waktu tempuh yang sama. Ini merepresentasikan kondisi jalan dua arah di dunia nyata.
+- Connected (Terhubung): Dalam kondisi normal (tidak ada jalan yang ditutup), seluruh node dapat saling terhubung satu sama lain melalui jalur-jalur yang tersedia. Keterhubungan ini diverifikasi menggunakan algoritma BFS.
+#### 3.2 Representasi: Adjacency List 
+Graph direpresentasikan menggunakan Adjacency List dengan struktur data berikut yang didefinisikan di Graph.java:
+```
+Map<String, List<Edge>> adjacencyList;
+```
+Setiap key berupa nodeId (String), dan value-nya adalah List<Edge> yang berisi semua tetangga dari node tersebut beserta seluruh atribut jalannya. Selain adjacency list, graph juga menyimpan semua node dalam:
+```
+Map<String, Node> nodes;
+```
+Sehingga informasi lengkap suatu node (nama, tipe, koordinat) bisa diakses langsung dari nodeId-nya.
+Contoh representasi adjacency list pada dataset:
+```
+R1 (Restoran Makan Enak)   → S1(2m), R2(3m), C9(8m)
+S1 (Simpang Jl Raya Utama) → R1(2m), R2(2m), R5(2m), S2(2m), S3(3m), C1(4m)
+C1 (Pelanggan Budi)        → R2(5m), S1(4m), C2(3m)
+```<img width="934" height="578" alt="Screenshot 2026-06-16 165758" src="https://github.com/user-attachments/assets/8a9332d9-c454-4357-a2f0-14cf79721d0d" />
 
-### Struktur Tree yang digunakan
+#### 3.3 Penjelasan Node
+Node merepresentasikan titik-titik lokasi dalam jaringan pengantaran makanan. Setiap node memiliki 5 atribut yang didefinisikan dalam Node.java : <br>
+<img width="682" height="191" alt="Screenshot 2026-06-16 232205" src="https://github.com/user-attachments/assets/40ddbdae-353c-4ff3-98e9-dba97efdfdf1" /> <br>
+Dataset menggunakan 25 node yang dibagi menjadi 3 tipe berdasarkan perannya dalam sistem: <br>
+<img width="649" height="173" alt="Screenshot 2026-06-16 232244" src="https://github.com/user-attachments/assets/3e39e8ea-30b1-4d0c-b945-8263efc12671" /><br>
+Node bertipe Simpang berperan penting sebagai jembatan konektivitas yang memungkinkan kurir berpindah dari zona restoran ke zona pelanggan yang tidak terhubung langsung. Misalnya, untuk mencapai C1 dari R1, kurir harus melewati S1 terlebih dahulu karena R1 dan C1 tidak terhubung langsung.<br>
+Semua node di-load dari nodes.csv melalui CSVLoader.loadNodes() saat program pertama kali dijalankan, dan disimpan di Map<String, Node> nodes di dalam Graph.
+#### 3.4 Penjelasan Edge
+Edge merepresentasikan jalan yang menghubungkan dua node. Setiap edge memiliki 5 atribut tambahan yang didefinisikan dalam Edge.java: <br>
+<img width="488" height="217" alt="image" src="https://github.com/user-attachments/assets/2719511b-ef1f-400f-86ef-9f2e863b2aeb" /> <br>
+Dataset memiliki 40 edge di edges.csv yang semuanya berstatus "Lancar" pada kondisi awal. Karena graph bersifat undirected, setiap baris di CSV menghasilkan dua directed edge di adjacency list, satu arah asli dan satu arah balik, sehingga total edge di adjacency list menjadi 82 directed edges. <br>
+Pemilihan waktuTempuh sebagai bobot utama (bukan jarak) didasarkan pada tujuan sistem yakni mengoptimalkan kecepatan pengantaran, bukan meminimalkan kilometer. Jalan yang lebih panjang bisa saja lebih cepat jika kondisinya lebih lancar. Total jarak dan biaya tetap dihitung dan ditampilkan di ShortestPathResult sebagai informasi tambahan bagi kurir.
+
+#### 3.5 Alasan Memilih Adjacency List
+Keputusan menggunakan Adjacency List dibandingkan Adjacency Matrix didasarkan pada dua alasan utama: efisiensi memori dan karakteristik graph.
+
+<img width="499" height="344" alt="image" src="https://github.com/user-attachments/assets/d3322edc-7718-48e6-a975-dbd4fbda1b63" /> <br>
+Algoritma Dijkstra dan BFS pada implementasi ini sangat sering melakukan iterasi tetangga suatu node. Dengan Adjacency List, iterasi hanya menyentuh node yang benar-benar terhubung (O(degree)), sedangkan jika menggunakan Matrix harus scan semua 25 kolom meskipun sebagian besar kosong (O(V)). <br>
+Satu-satunya keunggulan Matrix adalah cek edge langsung O(1), namun operasi ini tidak sering dilakukan dalam implementasi Dijkstra dan BFS, sehingga tidak menjadi faktor penentu.
+#### 3.6 Fitur closedEdges — Simulasi Jalan Tertutup
+Sistem menyediakan fitur simulasi penutupan jalan menggunakan sebuah Set<String> bernama closedEdges yang didefinisikan di Graph.java:
+```
+Set<String> closedEdges = new HashSet<>();
+```
+Dipilihnya HashSet (bukan List atau Array) karena operasi contains() pada HashSet berjalan dalam O(1), sedangkan List butuh O(n). Mengingat isEdgeActive() dipanggil setiap kali Dijkstra atau BFS melewati sebuah edge, yang bisa ratusan kali dalam satu pencarian rute. Olrh ksrena itu, efisiensi ini sangat penting.
+
+### Struktur Tree yang digunaka
 
 ### Algoritma yang digunakan
 
