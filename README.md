@@ -203,7 +203,147 @@ Set<String> closedEdges = new HashSet<>();
 ```
 Dipilihnya HashSet (bukan List atau Array) karena operasi contains() pada HashSet berjalan dalam O(1), sedangkan List butuh O(n). Mengingat isEdgeActive() dipanggil setiap kali Dijkstra atau BFS melewati sebuah edge, yang bisa ratusan kali dalam satu pencarian rute. Olrh ksrena itu, efisiensi ini sangat penting.
 
-### Struktur Tree yang digunaka
+### Struktur Tree yang digunakan
+
+#### 4.1 Jenis Tree yang Digunakan
+Pada proyek Food Delivery Route Optimizer, struktur tree yang digunakan adalah Min-Heap (Binary Heap). Min-Heap merupakan struktur data berbentuk pohon biner lengkap (Complete Binary Tree) yang disimpan menggunakan ArrayList.
+Karakteristik utama Min-Heap adalah setiap parent node memiliki nilai prioritas yang lebih tinggi dibandingkan child node-nya. Dengan demikian, elemen dengan prioritas tertinggi selalu berada pada root (indeks 0) sehingga dapat diakses dengan cepat.
+Implementasi Min-Heap digunakan untuk mengatur antrian pesanan makanan agar sistem dapat menentukan pesanan mana yang harus diproses terlebih dahulu.
+
+#### 4.2 Tujuan Penggunaan Min-Heap
+Min-Heap digunakan sebagai struktur antrian order karena memiliki efisiensi yang baik dalam operasi penyisipan dan pengambilan data.
+Tujuan utama penggunaannya adalah:
+Menyimpan seluruh order yang masuk ke sistem.
+Menentukan urutan pengantaran berdasarkan prioritas.
+Mengambil order dengan prioritas tertinggi secara cepat.
+Menangani order mendadak (VIP Order).
+Aturan prioritas yang digunakan adalah:
+
+<img width="631" height="137" alt="Screenshot 2026-06-16 at 23 28 07" src="https://github.com/user-attachments/assets/80c007ae-9184-45f3-869d-a6e655fa2f66" />
+
+Urutan pemrosesan:
+Prioritas lebih tinggi didahulukan (Urgent > High > Normal).
+Jika prioritas sama, maka order dengan deadline lebih kecil diproses terlebih dahulu.
+
+
+#### 4.3 Hubungan dengan Order.compareTo()
+
+Pengurutan pada Min-Heap tidak dilakukan secara langsung oleh heap, melainkan menggunakan method compareTo() pada class Order.
+Secara logika:
+
+
+<img width="348" height="101" alt="Screenshot 2026-06-16 at 23 28 46" src="https://github.com/user-attachments/assets/7ed8fa13-60f0-4e31-9e39-ed5dbbb8c8f6" />
+
+Ketika dua order dibandingkan:
+Sistem akan membandingkan nilai prioritas terlebih dahulu.
+Jika prioritas berbeda, order dengan prioritas lebih tinggi dianggap lebih penting.
+Jika prioritas sama, sistem membandingkan deadline.
+Deadline yang lebih kecil akan mendapatkan prioritas lebih tinggi.
+Contoh:
+
+<img width="629" height="96" alt="Screenshot 2026-06-16 at 23 29 07" src="https://github.com/user-attachments/assets/bfdeab3f-77e2-4469-8f63-4e120362cb2e" />
+
+Karena prioritas sama, maka:
+02 diproses terlebih dahulu karena memiliki “deadline” yang lebih kecil
+#### 4.4 Cara Kerja Enqueue (Insert)
+Method:
+
+<img width="627" height="65" alt="Screenshot 2026-06-16 at 23 29 45" src="https://github.com/user-attachments/assets/67d658b4-9c8b-4d0c-84a7-d29b13e1b706" />
+
+Langkah-langkah:
+1. Insert ke posisi terakhir
+   <img width="632" height="55" alt="Screenshot 2026-06-16 at 23 30 09" src="https://github.com/user-attachments/assets/e7f79d1b-2b54-4475-994f-62caddcb1c22" />
+
+2. Heapify-Up
+
+<img width="619" height="66" alt="Screenshot 2026-06-16 at 23 30 44" src="https://github.com/user-attachments/assets/052e6a25-7abc-48a0-95f6-a81cb3e96ad4" />
+
+
+Setelah dimasukkan, order akan dibandingkan dengan parent-nya.
+Jika order memiliki prioritas lebih tinggi, maka dilakukan pertukaran posisi (swap).
+Proses ini terus dilakukan hingga:
+mencapai root, atau
+parent memiliki prioritas lebih tinggi.
+#### 4.5 Cara Kerja Dequeue (Remove Root)
+Method:
+
+<img width="631" height="68" alt="Screenshot 2026-06-16 at 23 31 09" src="https://github.com/user-attachments/assets/b1a2bfe1-da16-4bc7-ab9f-9b73a2298ad4" />
+
+digunakan untuk mengambil order dengan prioritas tertinggi.
+Karena root selalu menyimpan order terbaik, maka order tersebut langsung diambil.
+Langkah-langkah
+1. Simpan root
+
+
+<img width="622" height="42" alt="Screenshot 2026-06-16 at 23 31 28" src="https://github.com/user-attachments/assets/701357f4-9645-43da-839c-6d05283a3f5a" />
+
+2. Ambil elemen terakhir
+   
+<img width="623" height="51" alt="Screenshot 2026-06-16 at 23 31 44" src="https://github.com/user-attachments/assets/2cab6b45-57f9-4191-ab3e-66c2ec6d465c" />
+
+3. Pindahkan ke root
+   
+<img width="630" height="35" alt="Screenshot 2026-06-16 at 23 32 05" src="https://github.com/user-attachments/assets/e2e18172-36b1-4f7b-929d-13ec0aaaf06f" />
+
+4. Heapify-Down
+   
+<img width="630" height="32" alt="Screenshot 2026-06-16 at 23 32 34" src="https://github.com/user-attachments/assets/edd742ed-b958-42dc-b53e-8ccfdca1b7c7" />
+
+Elemen root yang baru akan dibandingkan dengan kedua child-nya.
+Jika child memiliki prioritas lebih tinggi, maka dilakukan swap.
+Proses berlangsung sampai struktur heap kembali valid.
+#### 4.6 Heapify-Up dan Heapify-Down
+Heapify-Up
+Digunakan saat insert data baru.
+Algoritma:
+Bandingkan node dengan parent.
+Jika prioritas node lebih tinggi, lakukan swap.
+Ulangi hingga heap valid.
+Fungsi:
+
+<img width="646" height="83" alt="Screenshot 2026-06-16 at 23 33 04" src="https://github.com/user-attachments/assets/2906de2a-50d2-432c-831d-d95940fb6daa" />
+
+Heapify-Down
+Digunakan setelah root dihapus.
+Algoritma:
+Bandingkan parent dengan kedua child.
+Cari child dengan prioritas tertinggi.
+Tukar posisi jika diperlukan.
+Ulangi hingga heap valid.
+Fungsi:
+
+<img width="632" height="64" alt="Screenshot 2026-06-16 at 23 33 27" src="https://github.com/user-attachments/assets/a2311bc9-f408-4089-89ba-52135d89aba3" />
+
+4.7 Penanganan VIP Order
+Sistem menyediakan fitur:
+untuk menangani pesanan VIP yang masuk secara mendadak.
+
+<img width="624" height="75" alt="Screenshot 2026-06-16 at 23 33 44" src="https://github.com/user-attachments/assets/c926f9e3-4d10-40f0-807b-6b0649c406e8" />
+Impelementasinya:
+
+<img width="635" height="48" alt="Screenshot 2026-06-16 at 23 33 58" src="https://github.com/user-attachments/assets/e3e14225-8b0d-4510-b312-786ac0a164bc" />
+
+VIP order akan dimasukkan ke heap seperti order biasa, kemudian dilakukan proses heapifyUp().
+Karena VIP order umumnya memiliki prioritas paling tinggi, order tersebut akan bergerak ke atas heap dan berpotensi menjadi root.
+#### 4.8 Kesimpulan
+Min-Heap digunakan sebagai struktur data utama untuk mengelola antrian pengantaran makanan. Struktur ini memungkinkan sistem mengambil order dengan prioritas tertinggi secara efisien menggunakan operasi enqueue, dequeue, heapifyUp, dan heapifyDown. Pengurutan order ditentukan oleh method compareTo() dengan aturan Urgent > High > Normal, kemudian mempertimbangkan deadline terkecil. Selain itu, sistem juga mendukung penanganan VIP Order sehingga pesanan penting dapat segera diprioritaskan dalam antrian pengantaran.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Algoritma yang digunakan
 
