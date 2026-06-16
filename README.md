@@ -472,10 +472,551 @@ Selain itu, dipilih pendekatan Weighted Undirected Graph karena lebih sesuai unt
 
 ### Tracing
 
+#### 7.1 Tracing MinHeap
+
+Tracing dilakukan untuk memverifikasi bahwa struktur data MinHeap dapat mempertahankan urutan prioritas order secara benar. Pada simulasi ini digunakan tiga data order, yaitu ORD010 dengan prioritas Urgent, ORD004 dengan prioritas High, dan ORD001 dengan prioritas Normal.
+
+| Order ID | Priority | Deadline |
+| -------- | -------- | -------- |
+| ORD010   | Urgent   | 16       |
+| ORD004   | High     | 18       |
+| ORD001   | Normal   | 15       |
+
+##### 7.1.1 Insert ORD010 (Urgent, 16)
+
+Setelah `enqueue(ORD010)`:
+
+```text
+[ORD010]
+```
+
+Karena node berada pada root, proses heapify-up tidak melakukan perpindahan.
+
+---
+
+##### 7.1.2 Insert ORD004 (High, 18)
+
+Array setelah insert:
+
+```text
+[ORD010, ORD004]
+```
+
+Perbandingan:
+
+```text
+ORD004 (High) vs ORD010 (Urgent)
+```
+
+Karena High memiliki prioritas lebih rendah daripada Urgent, tidak terjadi swap.
+
+Representasi heap:
+
+
+<img width="192" height="190" alt="Screenshot 2026-06-16 204000" src="https://github.com/user-attachments/assets/744fc5e4-a0ea-4748-bf11-3bd0d0385949" />
+
+
+---
+
+##### 7.1.3 Insert ORD001 (Normal, 15)
+
+Array setelah insert:
+
+
+<img width="650" height="288" alt="Screenshot 2026-06-16 204035" src="https://github.com/user-attachments/assets/5ae2f0a0-7e83-49ec-a824-ba12ff79aa1f" />
+
+
+Perbandingan:
+
+```text
+ORD001 (Normal) vs ORD010 (Urgent)
+```
+
+Tidak terjadi swap karena Normal memiliki prioritas lebih rendah.
+
+Representasi heap:
+
+
+<img width="713" height="706" alt="Screenshot 2026-06-16 204221" src="https://github.com/user-attachments/assets/2e712663-4b38-4581-9c01-b685256e4c40" />
+
+
+
+Array final:
+
+```text
+[ORD010, ORD004, ORD001]
+```
+
+---
+
+##### 7.1.4 Dequeue dan Heapify-Down
+
+Root heap:
+
+```text
+ORD010
+```
+
+Node terakhir (`ORD001`) dipindahkan ke root.
+
+Array sebelum heapify-down:
+
+```text
+[ORD001, ORD004]
+```
+
+Proses heapify-down:
+
+| Index | Left Child      | Hasil |
+| ----- | --------------- | ----- |
+| 0     | ORD004 (High)   | Swap  |
+| 1     | Tidak ada child | Stop  |
+
+Array akhir:
+
+```text
+[ORD004, ORD001]
+```
+
+Representasi heap:
+
+
+<img width="683" height="298" alt="Screenshot 2026-06-16 204511" src="https://github.com/user-attachments/assets/67470b00-a214-4d26-96ed-0f13c36265c4" />
+
+
+
+Hasil dequeue:
+
+```text
+ORD010
+```
+
+---
+
+#### 7.2 Tracing Algoritma Dijkstra (R1 → C1)
+
+Tracing dilakukan untuk pencarian rute:
+
+```text
+R1 → C1
+```
+
+Bobot yang digunakan adalah waktu tempuh (menit).
+
+##### 7.2.1 Inisialisasi
+
+```java
+dist[R1] = 0
+dist[node lain] = ∞
+```
+
+Priority Queue:
+
+```text
+[R1:0]
+```
+
+---
+
+##### 7.2.2 Iterasi Algoritma
+
+| Iterasi | Node Diproses (dist) | Hasil Relaksasi                      |
+| ------- | -------------------- | ------------------------------------ |
+| 1       | R1 (0)               | S1 = 2, R2 = 3, C9 = 8               |
+| 2       | S1 (2)               | S2 = 4, S3 = 5, C1 = 6               |
+| 3       | R2 (3)               | Jalur ke C1 = 8 (lebih buruk dari 6) |
+| 4       | S2 (4)               | Update node lain                     |
+| 5       | S3 (5)               | Update node lain                     |
+| 6       | C1 (6)               | Tujuan ditemukan, algoritma berhenti |
+
+---
+
+##### 7.2.3 Rekonstruksi Path
+
+Nilai `prev` yang relevan:
+
+```java
+prev[C1] = S1
+prev[S1] = R1
+```
+
+Rekonstruksi:
+
+```text
+C1 ← S1 ← R1
+```
+
+Dibalik menjadi:
+
+```text
+R1 → S1 → C1
+```
+
+---
+
+##### 7.2.4 Hasil Akhir
+
+Path tercepat:
+
+```text
+R1 → S1 → C1
+```
+
+Total waktu:
+
+```text
+2 + 4 = 6 menit
+```
+
+Total jarak:
+
+```text
+0.3 + 0.6 = 0.9 km
+```
+
+Total biaya:
+
+```text
+Rp 2.000 + Rp 4.000 = Rp 6.000
+```
+
+Sebagai pembanding:
+
+```text
+R1 → R2 → C1 = 8 menit
+```
+
+Karena lebih lambat, jalur tersebut tidak dipilih oleh Dijkstra.
+
+---
+
+#### 7.3 Tracing Edge Case: Semua Jalan dari R1 Ditutup
+
+Simulasi dilakukan dengan menutup seluruh edge yang terhubung langsung ke R1:
+
+```java
+graph.closeEdge("R1", "S1");
+graph.closeEdge("R1", "R2");
+graph.closeEdge("R1", "C9");
+```
+
+Akibatnya node R1 menjadi terisolasi dari graph.
+
+---
+
+##### 7.3.1 Tracing BFS
+
+Kondisi awal:
+
+```text
+Queue   = [R1]
+Visited = {R1}
+```
+
+Saat R1 diproses, seluruh tetangganya di-skip karena edge berstatus tidak aktif.
+
+Queue menjadi kosong:
+
+```text
+[]
+```
+
+Algoritma berhenti dan mengembalikan:
+
+```text
+false
+```
+
+Artinya C1 tidak dapat dicapai dari R1.
+
+---
+
+##### 7.3.2 Tracing Dijkstra (R1, C1)
+
+Inisialisasi:
+
+```java
+dist[R1] = 0
+dist[node lain] = ∞
+```
+
+Priority Queue:
+
+```text
+[R1]
+```
+
+Ketika R1 diproses:
+
+```text
+Edge R1-S1 ditutup
+Edge R1-R2 ditutup
+Edge R1-C9 ditutup
+```
+
+Tidak ada relaksasi yang terjadi sehingga queue langsung kosong.
+
+Nilai akhir:
+
+```java
+dist[C1] = Integer.MAX_VALUE
+```
+
+Karena tujuan tidak pernah tercapai, method mengembalikan:
+
+```text
+null
+```
+
+dan sistem menampilkan pesan:
+
+```text
+Tidak ada jalur dari R1 ke C1
+```
+
+---
+
+##### 7.3.3 Kesimpulan Edge Case
+
+Hasil tracing menunjukkan bahwa mekanisme `closedEdges` bekerja konsisten pada BFS maupun Dijkstra. Ketika seluruh jalur keluar dari node awal ditutup:
+
+1. BFS tidak dapat menemukan node tujuan sehingga menghasilkan `false`.
+2. Dijkstra tidak dapat melakukan relaksasi sehingga `dist[endId]` tetap bernilai `Integer.MAX_VALUE`.
+3. Sistem menyimpulkan bahwa tidak tersedia rute yang dapat digunakan untuk pengantaran.
+
+
 ### Screenshot Hasil Program
 
 ### Analisis Kompleksitas
 
-### What-if analysis
+Bagian ini menyajikan analisis kompleksitas waktu dari seluruh operasi utama yang digunakan dalam sistem Food Delivery Route Optimizer. Analisis mencakup struktur data MinHeap, algoritma Graf (Dijkstra dan BFS), serta operasi pendukung lainnya.
+
+| Operasi | Struktur / Algoritma | Kompleksitas Waktu | Alasan |
+|----------|---------------------|-------------------|---------|
+| Insert Order (enqueue) | MinHeap (ArrayList) | O(log n) | Setelah elemen ditambahkan di akhir array, `heapifyUp()` memindahkan elemen ke atas. Jumlah swap maksimal = tinggi heap = ⌊log₂ n⌋. |
+| Pop Order (dequeue) | MinHeap (ArrayList) | O(log n) | Root dihapus, elemen terakhir dipindah ke root, lalu `heapifyDown()` menukar elemen ke bawah. Jumlah swap maksimal = tinggi heap = ⌊log₂ n⌋. |
+| Peek Order | MinHeap (ArrayList) | O(1) | Cukup mengakses `heap.get(0)`, yaitu elemen pertama di array. Tidak ada traversal. |
+| Delete Order | MinHeap | O(n log n) | Harus mencari elemen terlebih dahulu kemudian melakukan perbaikan heap. |
+| Search Order | MinHeap | O(n) | Pencarian dilakukan secara linear pada seluruh isi heap. |
+| Display Queue | MinHeap | O(n) | Menampilkan seluruh elemen dalam heap. |
+| Dijkstra (cari rute) | Graph + Priority Queue | O((V+E) log V) | Setiap node di-extract dari PriorityQueue satu kali O(V log V) dan setiap edge diperiksa satu kali O(E log V). Untuk dataset ini: V=25, E=82 → ≈ 496 operasi. |
+| BFS (cek keterhubungan) | Graph + LinkedList Queue | O(V + E) | Setiap node masuk queue maksimal satu kali dan setiap edge diperiksa satu kali. Untuk dataset ini ≈ 107 operasi. |
+| Load Dataset CSV | Graph | O(V + E) | Seluruh node dan edge dibaca satu kali saat program dijalankan. |
+| closeEdge() | HashSet | O(1) | Operasi add pada HashSet. |
+| openEdge() | HashSet | O(1) | Operasi remove pada HashSet. |
+| isEdgeActive() | HashSet | O(1) | Operasi contains pada HashSet. |
+
+#### Ringkasan Kompleksitas per Komponen
+
+- **MinHeap**
+  - enqueue → O(log n)
+  - dequeue → O(log n)
+  - peek → O(1)
+  - delete → O(n log n)
+  - search → O(n)
+  - display → O(n)
+
+- **Graph — Dijkstra**
+  - O((V + E) log V)
+  - Untuk dataset ini ≈ 496 operasi
+
+- **Graph — BFS**
+  - O(V + E)
+  - Untuk dataset ini ≈ 107 operasi
+
+- **Graph — Load CSV**
+  - O(V + E)
+  - Hanya dilakukan sekali saat program dijalankan
+
+- **HashSet closedEdges**
+  - isEdgeActive → O(1)
+  - closeEdge → O(1)
+  - openEdge → O(1)
+
+---
+
+### 10. What-if Analysis
+
+What-if Analysis dilakukan untuk mengevaluasi ketahanan (robustness), skalabilitas, dan kemampuan adaptasi sistem terhadap berbagai perubahan kondisi yang mungkin terjadi pada lingkungan operasional. Analisis ini berfokus pada perilaku struktur data Graph dan MinHeap yang digunakan dalam sistem.
+
+#### 10.1 Skenario Peningkatan Jumlah Node dari 25 Menjadi 10.000
+
+##### a. Kondisi Awal
+
+Sistem awal dirancang untuk menangani sekitar 25 node yang terdiri atas restoran, pelanggan, dan titik distribusi. Pada skenario ini jumlah node ditingkatkan menjadi 10.000 node untuk menguji skalabilitas sistem.
+
+##### b. Dampak terhadap Graph
+
+Algoritma Dijkstra yang digunakan memiliki kompleksitas:
+
+```text
+O((V + E) log V)
+```
+
+Ketika jumlah node meningkat secara signifikan, ukuran adjacency list, tabel jarak (`dist`), tabel predecessor (`prev`), dan himpunan `visited` akan bertambah.
+
+Akibatnya:
+
+- Penggunaan memori meningkat.
+- Waktu komputasi pencarian rute menjadi lebih lama.
+
+### c. Dampak terhadap MinHeap
+
+MinHeap tidak menyimpan node graph, melainkan antrian order.
+
+Kompleksitas operasi:
+
+```text
+enqueue  = O(log n)
+dequeue  = O(log n)
+```
+
+tetap tidak berubah.
+
+Namun apabila jumlah order meningkat seiring pertumbuhan node:
+
+- Ukuran heap menjadi lebih besar.
+- Penggunaan memori meningkat.
+
+### d. Kesimpulan
+
+Bottleneck utama sistem berada pada proses pencarian rute dalam Graph.
+
+MinHeap tetap mampu menangani pertambahan data secara efisien.
+
+---
+
+#### 10.2 Skenario Penutupan Jalan (Edge Closure)
+
+##### a. Kondisi Awal
+
+Beberapa ruas jalan tidak dapat digunakan karena perbaikan, kecelakaan, atau kondisi darurat sehingga edge tertentu harus dinonaktifkan.
+
+##### b. Dampak terhadap Graph
+
+Sistem menggunakan mekanisme:
+
+```java
+closeEdge()
+```
+
+untuk menandai jalan yang ditutup.
+
+Selama proses Dijkstra maupun BFS, edge yang ditutup akan diabaikan sehingga sistem secara otomatis mencari jalur alternatif yang masih tersedia.
+
+##### c. Dampak terhadap MinHeap
+
+Tidak terdapat pengaruh langsung terhadap struktur heap karena MinHeap hanya mengatur prioritas order.
+
+Namun waktu pengiriman dapat meningkat apabila rute alternatif lebih panjang.
+
+##### d. Kesimpulan
+
+Sistem tetap dapat beroperasi selama masih tersedia jalur alternatif yang menghubungkan titik asal dan tujuan.
+
+---
+
+#### 10.3 Skenario Perubahan Bobot Edge Akibat Kemacetan
+
+##### a. Kondisi Awal
+
+Waktu tempuh suatu jalan dapat berubah karena kemacetan, cuaca buruk, atau peningkatan volume kendaraan.
+
+##### b. Dampak terhadap Graph
+
+Karena Dijkstra menggunakan waktu tempuh sebagai bobot utama, perubahan bobot edge akan memengaruhi hasil pencarian rute.
+
+Kemungkinan yang terjadi:
+
+- Jalur tercepat sebelumnya tidak lagi optimal.
+- Dijkstra akan memilih rute baru dengan total waktu lebih kecil.
+
+##### c. Dampak terhadap MinHeap
+
+Tidak ada dampak langsung terhadap MinHeap karena prioritas order tidak bergantung pada bobot edge.
+
+##### d. Kesimpulan
+
+Sistem mampu beradaptasi terhadap perubahan kondisi lalu lintas selama data bobot edge diperbarui.
+
+---
+
+#### 10.4 Skenario Node Tidak Ditemukan
+
+##### a. Kondisi Awal
+
+Pengguna memasukkan ID node yang tidak terdapat dalam graph.
+
+Contoh:
+
+```text
+R999
+C999
+```
+
+##### b. Dampak terhadap Graph
+
+Operasi pencarian rute maupun BFS tidak dapat dilakukan karena node sumber atau tujuan tidak tersedia.
+
+##### c. Dampak terhadap MinHeap
+
+Tidak ada pengaruh terhadap struktur heap.
+
+##### d. Kesimpulan
+
+Sistem harus melakukan validasi input terlebih dahulu dan menampilkan pesan kesalahan yang sesuai.
+
+---
+
+#### 10.5 Skenario Graph Tidak Terhubung
+
+##### a. Kondisi Awal
+
+Penutupan sejumlah jalan menyebabkan graph terpecah menjadi beberapa komponen yang tidak saling terhubung.
+
+##### b. Dampak terhadap Graph
+
+BFS akan menghasilkan:
+
+```text
+false
+```
+
+karena node tujuan tidak dapat dicapai.
+
+Dijkstra akan menghasilkan:
+
+```text
+dist[endId] = Integer.MAX_VALUE
+```
+
+dan method mengembalikan:
+
+```text
+null
+```
+
+##### c. Dampak terhadap MinHeap
+
+Order tidak hilang.
+
+Order dapat dikembalikan ke heap untuk diproses ulang ketika jaringan jalan kembali terhubung.
+
+##### d. Kesimpulan
+
+Sistem mampu mendeteksi kondisi graph yang tidak terhubung dan mencegah pengiriman menggunakan rute yang tidak valid.
+
+---
+
+#### 10.6 Kesimpulan dari What-if Analysis
+
+Berdasarkan berbagai skenario yang diuji, dapat disimpulkan bahwa:
+
+1. Struktur Graph menjadi komponen yang paling berpengaruh terhadap performa ketika jumlah node meningkat.
+2. MinHeap tetap stabil karena operasi utamanya hanya bergantung pada jumlah order.
+3. Mekanisme `closedEdges` memungkinkan sistem beradaptasi terhadap penutupan jalan secara dinamis.
+4. Perubahan bobot edge dapat langsung memengaruhi hasil optimasi rute tanpa perlu mengubah struktur graph.
+5. Sistem mampu menangani kondisi error seperti node tidak ditemukan maupun graph yang tidak terhubung.
+6. Secara keseluruhan, desain Graph + MinHeap yang digunakan cukup robust dan scalable untuk simulasi pengantaran makanan berbasis jaringan jalan.
 
 ### Kesimpulan
