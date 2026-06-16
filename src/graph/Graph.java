@@ -298,7 +298,7 @@ public class Graph {
 
     public void displayGraph() {
         System.out.println("\n╔══════════════════════════════════════════════════╗");
-        System.out.println("║           ADJACENCY LIST — FOOD DELIVERY          ║");
+        System.out.println("║           ADJACENCY LIST - FOOD DELIVERY          ║");
         System.out.println("╚══════════════════════════════════════════════════╝");
 
         // urutkan node supaya tampilan konsisten

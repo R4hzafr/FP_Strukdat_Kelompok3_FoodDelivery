@@ -18,6 +18,45 @@ Hafara Firdausi, S. Kom, M.Kom
 | 5027251008 | Silfi Rochmatul Auliyah |
 | 5027251129 | Dafa Ridho Zhafif |
 
+ 
+## Cara Menjalankan Program
+ 
+### 1. Persiapan
+ 
+Pastikan seluruh file sudah diunduh terlebih dahulu dengan struktur folder sebagai berikut:
+ 
+```
+FP_Strukdat_Kelompok3/
+├── src/
+│   ├── Main.java
+│   ├── graph/
+│   │   └── Graph.java
+│   ├── tree/
+│   │   └── MinHeap.java
+│   └── model/
+│       ├── Order.java
+│       ├── Node.java
+│       ├── Edge.java
+│       └── CSVLoader.java
+├── data/
+│   ├── nodes.csv
+│   ├── edges.csv
+│   └── orders.csv
+├── docs/
+│   ├── laporan.pdf
+│   └── tracing.pdf
+└── README.md
+```
+
+### 2. Menjalankan Program
+
+Buka folder proyek di Visual Studio Code, kemudian buka file `src/Main.java`
+dan klik tombol **Run Java** yang muncul di pojok kanan atas editor.
+
+Pastikan ekstensi **Extension Pack for Java** sudah terinstall di VS Code.
+Jika belum, install melalui Extensions (Ctrl+Shift+X) dan cari
+"Extension Pack for Java".
+
 ## Daftar Isi
 
 1. Deskripsi Masalah

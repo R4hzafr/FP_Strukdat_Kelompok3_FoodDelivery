@@ -495,7 +495,7 @@ public class Main {
 
         System.out.println("\nStrategi 1 - Prioritas + Deadline (MinHeap / default sistem):");
         System.out.println("-".repeat(50));
-        for (int i = 0; i < byPrioritas.size(); i++) {
+        for (int i = 0; i < byPrioritas.size(); i++) {  
             System.out.println("  " + (i + 1) + ". " + byPrioritas.get(i));
         }
 
