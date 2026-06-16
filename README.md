@@ -328,24 +328,134 @@ Karena VIP order umumnya memiliki prioritas paling tinggi, order tersebut akan b
 #### 4.8 Kesimpulan
 Min-Heap digunakan sebagai struktur data utama untuk mengelola antrian pengantaran makanan. Struktur ini memungkinkan sistem mengambil order dengan prioritas tertinggi secara efisien menggunakan operasi enqueue, dequeue, heapifyUp, dan heapifyDown. Pengurutan order ditentukan oleh method compareTo() dengan aturan Urgent > High > Normal, kemudian mempertimbangkan deadline terkecil. Selain itu, sistem juga mendukung penanganan VIP Order sehingga pesanan penting dapat segera diprioritaskan dalam antrian pengantaran.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Algoritma yang digunakan
+Sistem Food Delivery Route Optimizer mengimplementasikan dua algoritma graph: Dijkstra untuk mencari rute pengantaran tercepat, dan BFS untuk memvalidasi keterhubungan antar lokasi. Keduanya diimplementasikan secara mandiri di Graph.java tanpa menggunakan library eksternal. 
+#### 5.1 Algoritma Dijkstra 
+##### 5.1.1 Tujuan
+Dijkstra digunakan untuk mencari rute tercepat dari node asal ke node tujuan berdasarkan bobot waktuTempuh (menit). Setiap kali kurir hendak mengantarkan order, Dijkstra menentukan jalur mana yang harus dilewati agar waktu pengantaran paling singkat.
+##### 5.1.2 Tiga Struktur Data Internal 
+Dijkstra pada implementasi ini menggunakan tiga struktur data yang bekerja bersama:
+
+1. dist : Menyimpan waktu tercepat ke setiap node
+```
+Map<String, Integer> dist = new HashMap<>();
+```
+
+Pada awalnya, semua node diisi nilai Integer.MAX_VALUE (tak terhingga) karena belum diketahui jalurnya. Node awal diisi 0 karena kurir sudah berada di sana. Setiap kali ditemukan jalur yang lebih cepat, nilai ini diperbarui.
+2. prev : Menyimpan jejak jalur
+
+```
+Map<String, String> prev = new HashMap<>();
+```
+
+Menyimpan informasi "node ini dicapai dari mana." Digunakan di akhir proses untuk merekonstruksi urutan jalur dari tujuan kembali ke asal.
+
+Contoh: jika prev["C1"] = "S1" dan prev["S1"] = "R1", maka jalurnya adalah R1 → S1 → C1.
+4. Priority Queue : Selalu proses yang tercepat dulu
+```
+PriorityQueue<String> queue = new PriorityQueue<>(
+Comparator.comparingInt(id -> dist.getOrDefault(id, Integer.MAX_VALUE)));
+```
+
+Priority Queue memastikan node dengan waktu tempuh terkecil selalu diproses lebih dulu. Inilah yang membuat Dijkstra efisien, alias jalur yang paling menjanjikan dieksplorasi lebih awal.
+
+##### 5.1.3 Skip Edge yang Ditutup
+Sebelum memproses setiap edge, Dijkstra memanggil isEdgeActive() untuk mengecek apakah jalan tersebut sedang aktif atau ditutup:
+```
+for (Edge edge : neighbors) {
+    if (!isEdgeActive(current, edge.destination)) continue; // skip jalan tutup
+    int newDist = dist.get(current) + edge.waktuTempuh;
+    if (newDist < dist.getOrDefault(edge.destination, Integer.MAX_VALUE)) {
+        dist.put(edge.destination, newDist);
+        prev.put(edge.destination, current);
+        queue.offer(edge.destination);
+    }
+}
+```
+
+Jika jalan S1↔S2 ditutup, Dijkstra otomatis melewatinya dan mencari jalur alternatif. Apabila tidak ada jalur lain sama sekali, nilai dist[endId] tetap Integer.MAX_VALUE dan method mengembalikan null.
+
+##### 5.1.4 ShortestPathResult 
+Hasil Dijkstra dikemas dalam inner class ShortestPathResult yang berisi empat informasi sekaligus: 
+<img width="442" height="109" alt="image" src="https://github.com/user-attachments/assets/e745a4d1-3b4b-482e-a8c8-1223777ad2a6" />
+
+Total jarak & biaya dihitung dengan menelusuri setiap edge di sepanjang path:
+
+```
+for (int i = 0; i < path.size() - 1; i++) {
+    Edge e = getEdge(path.get(i), path.get(i + 1));
+    if (e != null) {
+        totalJarak += e.jarak;
+        totalBiaya += e.biaya;
+    }
+}
+
+```
+Screenshot result.display() : <br>
+<img width="455" height="247" alt="image" src="https://github.com/user-attachments/assets/9882e8f4-a1e4-475a-849e-2feccf744dd0" />
+
+##### 5.1.5 Kompleksitas Dijkstra
+<img width="442" height="85" alt="image" src="https://github.com/user-attachments/assets/99fa8f25-c201-4b02-85e1-5da23f0c74df" /> <br>
+Untuk dataset ini: V=25, E=82, sehingga O((25+82) × log 25) ≈ 107 × 4.64 ≈ 496 operasi.
+
+#### 5.2 Algoritma BFS (Breadth-First Search)  
+##### 5.2.1 Tujuan
+
+BFS digunakan untuk memvalidasi keterhubungan area, seperti memastikan bahwa dari suatu lokasi masih bisa dicapai lokasi lain, terutama setelah ada simulasi penutupan jalan. Berbeda dengan Dijkstra yang memperhitungkan bobot, BFS hanya peduli apakah jalur ada atau tidak. 
+
+##### 5.2.2 Tiga Varian BFS
+- Varian 1 : isConnected(startId, endId)
+  
+Mengecek apakah dua node masih terhubung, mengembalikan true atau false. Begitu node tujuan ditemukan, BFS langsung berhenti tanpa perlu menjelajahi seluruh graph.
+
+```
+while (!queue.isEmpty()) {
+    String current = queue.poll();
+    if (current.equals(endId)) return true; // langsung berhenti
+    for (Edge edge : adjacencyList.getOrDefault(current, ...)) {
+        if (!visited.contains(edge.destination)
+                && isEdgeActive(current, edge.destination)) {
+            visited.add(edge.destination);
+            queue.offer(edge.destination);
+        }
+    }
+}
+return false;
+```
+
+Dipanggil di checkConnectivity() - menu Simulasi → Cek Keterhubungan BFS. User memilih dua lokasi dan sistem menampilkan apakah keduanya masih terhubung setelah simulasi penutupan jalan.
+- Varian 2  : bfsLevelTraversal(startId)
+  
+Mengembalikan semua node yang bisa dicapai dari startId. BFS berjalan sampai habis tanpa berhenti di node tertentu. Berguna untuk melihat dampak menyeluruh dari penutupan jalan, node yang tidak masuk ke dalam hasil berarti areanya terisolasi. 
+
+Dipanggil di TestGraph.java untuk keperluan pengujian konektivitas graph setelah simulasi. 
+
+- Varian 3 : isConnected(startId, endId)
+- 
+BFS dengan visualisasi level — setiap node ditampilkan beserta levelnya dari titik awal. Digunakan untuk memperlihatkan struktur jaringan secara visual saat demo. Contoh output dari S1:
+
+Level 0 → S1 (Simpang Jl Raya Utama) <br>
+Level 1 → R1 (Restoran Makan Enak)<br>
+Level 1 → S2 (Simpang Jl Sudirman)<br>
+Level 1 → C1 (Pelanggan Budi)<br>
+Level 2 → C2 (Pelanggan Siti)<br>
+Level 2 → S4 (Simpang Jl Gatot Subroto)<br>
+Level 3 → C8 (Pelanggan Ani) <br>
+Dipanggil di TestGraph.java untuk keperluan visualisasi.<br>
+
+Screenshot result.display() : 
+<img width="379" height="455" alt="Screenshot 2026-06-16 185206" src="https://github.com/user-attachments/assets/4af0bad4-66d8-4719-8c68-631a072a2cf2" />
+
+##### 5.2.3 Kompleksitas BFS 
+
+<img width="437" height="133" alt="image" src="https://github.com/user-attachments/assets/78f30449-3973-4ed0-9215-fb8445b41d72" />
+
+Untuk dataset ini: O(25+82) = O(107 operasi). Lebih cepat dari Dijkstra karena tidak menggunakan Priority Queue.
+
+
+
+
+
 
 ### Design Decision Log
 
