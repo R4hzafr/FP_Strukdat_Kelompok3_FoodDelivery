@@ -105,6 +105,67 @@ Data node, edge, dan order dibaca dari dataset sehingga dapat diperbarui tanpa m
 Sistem dijalankan sebagai aplikasi command-line interface (CLI).
 
 ### Dataset
+#### Gambaran Umum Dataset
+Dataset yang digunakan dalam proyek ini merupakan dataset sintetis yang dirancang secara khusus untuk mensimulasikan skenario pengiriman makanan di wilayah perkotaan. Dataset dibuat sendiri karena belum tersedia dataset publik yang secara spesifik memodelkan jaringan jalan + restoran + pelanggan dalam satu format graph yang terintegrasi dan sesuai kebutuhan algoritma optimasi rute.
+
+<img width="584" height="155" alt="Screenshot 2026-06-16 at 23 13 17" src="https://github.com/user-attachments/assets/8233a54f-bb6c-4c26-ae8a-695e1cdadb9a" />
+
+#### 2.2 Alasan Dataset Dibuat Sendiri
+	Dataset dibuat secara mandiri karena beberapa alasan:
+Tidak ada dataset publik yang sesuai. Dataset pengiriman makanan yang tersedia secara publik (seperti dari GrubHub atau Grab) umumnya hanya menyediakan data transaksional (waktu, jarak tempuh total), bukan data struktural graf yang mencakup node jalan/simpang, bobot tepi berlapis, dan relasi restoran-pelanggan secara simultan.
+Fleksibilitas desain eksperimen. Dengan membuat dataset sendiri, struktur graf dapat disesuaikan untuk menguji berbagai kondisi seperti variasi prioritas pesanan, kepadatan node, dan distribusi jarak.
+Kontrol kualitas data. Dataset sintetis memungkinkan tidak ada nilai kosong (missing values) dan semua atribut dapat dikontrol untuk memastikan konsistensi pengujian algoritma.
+Representasi wilayah lokal. Dataset dirancang menggunakan koordinat geografis yang merepresentasikan kawasan kota Surabaya, sehingga lebih relevan dengan konteks penggunaan nyata.
+
+#### 2.3 File Nodes (nodes_copy.csv)
+
+<img width="587" height="187" alt="Screenshot 2026-06-16 at 23 14 12" src="https://github.com/user-attachments/assets/48966825-22f4-46c2-9335-c2302b654d46" />
+
+##### Distribusi node berdasarkan tipe:
+
+
+<img width="570" height="169" alt="Screenshot 2026-06-16 at 23 15 48" src="https://github.com/user-attachments/assets/66c7409a-87af-420e-8cb0-9fa6e38ca301" />
+
+##### Seluruh data nodes:
+
+<img width="566" height="544" alt="Screenshot 2026-06-16 at 23 16 20" src="https://github.com/user-attachments/assets/d11484e8-79e4-475a-b29f-65509b7fb117" />
+
+<img width="558" height="242" alt="Screenshot 2026-06-16 at 23 16 34" src="https://github.com/user-attachments/assets/e4e78785-c0e8-4e38-b26f-2b379ea29402" />
+
+#### 2.4 Penjelasan Pembagian Tipe Node
+
+Pembagian node menjadi tiga tipe didasarkan pada peran fungsional masing-masing titik dalam jaringan pengiriman:
+a) Restaurant (R) — 6 node (R1–R6)
+Node restoran berfungsi sebagai titik asal (source) dalam setiap order pengiriman. Pada restoran inilah makanan disiapkan dan menjadi titik keberangkatan kurir. Dalam pemodelan graf, node ini memiliki derajat keluar (out-degree) yang tinggi karena menjadi sumber banyak rute.
+b) Customer (C) — 12 node (C1–C12)
+Node pelanggan berfungsi sebagai titik tujuan (destination) pengiriman. Setiap pelanggan memiliki tenggat waktu (deadline) dan prioritas yang berbeda-beda, sehingga algoritma optimasi perlu memperhitungkan constraint ini saat merencanakan rute.
+c) Simpang (S) — 7 node (S1–S7)
+Node simpang merepresentasikan persimpangan jalan atau titik perantara dalam jaringan jalan kota. Node ini tidak menjadi asal maupun tujuan pengiriman secara langsung, tetapi berperan sebagai relay point yang menghubungkan restoran dengan pelanggan melalui jalur yang lebih efisien. Keberadaan node simpang membuat pemodelan graf lebih realistis karena mencerminkan kondisi jaringan jalan nyata di mana kurir tidak selalu bisa langsung dari restoran ke pelanggan.
+
+#### 2.5 File Edges (edges_copy.csv)
+
+<img width="569" height="255" alt="Screenshot 2026-06-16 at 23 17 21" src="https://github.com/user-attachments/assets/556d88d7-b6ce-4b30-bbda-8f659e9eea29" />
+
+#### 2.6 File Orders (orders_copy.csv)
+
+<img width="563" height="215" alt="Screenshot 2026-06-16 at 23 17 48" src="https://github.com/user-attachments/assets/9147b5a1-70c5-4ae1-ba7e-01494f4c2cea" />
+
+#### Distribusi prioritas order:
+
+<img width="578" height="122" alt="Screenshot 2026-06-16 at 23 18 15" src="https://github.com/user-attachments/assets/1c464ec7-d321-4492-81c8-9d01f1ef81d9" />
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Struktur Graph yang digunakan
 
