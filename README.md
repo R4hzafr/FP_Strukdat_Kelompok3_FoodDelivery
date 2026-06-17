@@ -755,36 +755,64 @@ Hasil tracing menunjukkan bahwa mekanisme `closedEdges` bekerja konsisten pada B
 
 #### Menu Utama Program
 
-```text
-╔══════════════════════════════════════════════════╗
-║             SISTEM FOOD DELIVERY                 ║
-╠══════════════════════════════════════════════════╣
-║ 1. Tambah Order                                  ║
-║ 2. Lihat Antrian Order                           ║
-║ 3. Cari Order                                    ║
-║ 4. Hapus Order                                   ║
-║ 5. Proses Order                                  ║
-║ 6. Cari Rute                                     ║
-║ 7. Tampilkan Peta Jaringan                       ║
-║ 8. Simulasi                                      ║
-║ 0. Keluar                                        ║
-╚══════════════════════════════════════════════════╝
-```
+<img width="932" height="742" alt="Screenshot 2026-06-16 182821" src="https://github.com/user-attachments/assets/5159b1ed-5869-4b44-9342-de781ed8dd5e" />
+
+#### Menu Tambah Order
+
+<img width="1452" height="765" alt="Screenshot 2026-06-16 182928" src="https://github.com/user-attachments/assets/6ce91245-0b37-405d-9bbe-1a632c30171e" />
+
+#### Menu Lihat Antrian 
+
+<img width="1363" height="642" alt="Screenshot 2026-06-16 182957" src="https://github.com/user-attachments/assets/614a2ce3-ebb5-4ec2-b047-4a142d497013" />
+
+#### Menu Cari Order
+
+<img width="1378" height="442" alt="Screenshot 2026-06-16 183016" src="https://github.com/user-attachments/assets/a548890d-abc5-4e32-9fa2-dc823b3e5fdb" />
+
+1. Cari Order Berdasaarkan ID
+
+<img width="1387" height="346" alt="Screenshot 2026-06-16 183056" src="https://github.com/user-attachments/assets/c40f2b1a-e7eb-404e-a5c7-26b325a194d8" />
+
+2. Cari Order Berdasarkan Nama
+
+<img width="1247" height="540" alt="Screenshot 2026-06-16 183119" src="https://github.com/user-attachments/assets/81f9dd35-14e9-4445-99e1-db3668b87a68" />
+
+#### Menu Hapus Order
+
+<img width="978" height="717" alt="Screenshot 2026-06-16 183148" src="https://github.com/user-attachments/assets/c979d5b8-bdaf-4485-ba5c-00b1fee8b2f5" />
+
+#### Menu Proses Order
+
+<img width="947" height="707" alt="Screenshot 2026-06-16 183206" src="https://github.com/user-attachments/assets/d0987da9-0440-42f3-aeff-73e352678628" />
+
+#### Menu Cari Rute
+
+<img width="875" height="853" alt="Screenshot 2026-06-16 183320" src="https://github.com/user-attachments/assets/a6f087b3-7d46-485e-a167-f89703df97e7" />
+
+#### Menu Tampilkan Peta Jaringan
+
+<img width="1242" height="792" alt="Screenshot 2026-06-16 183351" src="https://github.com/user-attachments/assets/a612a0ff-b05a-4d42-8e87-f2b103f99f40" />
 
 #### Menu Simulasi
 
-```text
-╔══════════════════════════════════════════════════╗
-║                  MENU SIMULASI                   ║
-╠══════════════════════════════════════════════════╣
-║ 1. Simulasi Order VIP                            ║
-║ 2. Simulasi Jalan Ditutup                        ║
-║ 3. Cek Keterhubungan (BFS)                       ║
-║ 4. Perbandingan Strategi Pengantaran            ║
-║ 0. Kembali                                       ║
-╚══════════════════════════════════════════════════╝
-```
-Screenshot lengkap terdapat di laporan.pdf
+1. Simulasi Order VIP
+
+<img width="482" height="815" alt="Screenshot 2026-06-16 183423" src="https://github.com/user-attachments/assets/f6aed2ee-b85d-42c7-ae7b-b867c06ea865" />
+
+2. Simulasi Jalan ditutup
+
+<img width="1007" height="778" alt="Screenshot 2026-06-16 183521" src="https://github.com/user-attachments/assets/6fb43584-9054-4243-b466-599f0d6c89dd" />
+
+3. Cek Keterhubungan
+
+<img width="653" height="742" alt="Screenshot 2026-06-16 183554" src="https://github.com/user-attachments/assets/b66fffca-59f2-4d49-a1f1-b4a4235b062d" />
+
+4. Perbandingan Strategi Pengantaran
+
+<img width="1038" height="611" alt="Screenshot 2026-06-16 183615" src="https://github.com/user-attachments/assets/b4ed32ea-4ee6-48b5-ae1e-c2ef06ea7773" />
+
+<img width="1196" height="653" alt="Screenshot 2026-06-16 183626" src="https://github.com/user-attachments/assets/afcb6db2-a8bb-4e78-922a-1621d5d29d6b" />
+
 
 ### Analisis Kompleksitas
 
