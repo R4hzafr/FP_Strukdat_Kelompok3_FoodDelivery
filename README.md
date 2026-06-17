@@ -51,8 +51,7 @@ FP_Strukdat_Kelompok3/
 ### 2. Menjalankan Program
 
 Buka folder proyek di Visual Studio Code, kemudian buka file `src/Main.java`
-dan klik tombol **Run Java** yang muncul di pojok kanan atas editor.
-
+dan klik tombol **Run Java** yang muncul di pojok kanan atas editor. <br>
 Pastikan ekstensi **Extension Pack for Java** sudah terinstall di VS Code.
 Jika belum, install melalui Extensions (Ctrl+Shift+X) dan cari
 "Extension Pack for Java".
@@ -75,34 +74,34 @@ Jika belum, install melalui Extensions (Ctrl+Shift+X) dan cari
 
 ### Deskripsi Masalah
 
-### 1.1 Latar Belakang
-Industri pengantaran makanan daring mengalami pertumbuhan yang signifikan dalam beberapa tahun terakhir. Pertumbuhan tersebut membawa tantangan operasional yang semakin kompleks, terutama bagi kurir yang harus mengelola banyak pesanan secara bersamaan dalam waktu yang terbatas.
-Terdapat tiga permasalahan utama yang dihadapi dalam operasional pengantaran makanan. Pertama, kurir memerlukan informasi rute tercepat dari lokasi restoran menuju lokasi pelanggan agar pengantaran dapat diselesaikan tepat waktu. Kedua, kondisi jalan tidak selalu dapat diprediksi, kemacetan maupun penutupan jalan dapat terjadi kapan saja dan memaksa kurir untuk mencari jalur alternatif secara cepat. Ketiga, pesanan dapat masuk sewaktu-waktu dengan tingkat urgensi yang berbeda-beda, termasuk pesanan VIP yang masuk secara mendadak dan harus segera didahulukan tanpa mengabaikan pesanan lain yang sudah mengantre.
+#### 1.1 Latar Belakang
+Industri pengantaran makanan daring mengalami pertumbuhan yang signifikan dalam beberapa tahun terakhir. Pertumbuhan tersebut membawa tantangan operasional yang semakin kompleks, terutama bagi kurir yang harus mengelola banyak pesanan secara bersamaan dalam waktu yang terbatas.<br>
+Terdapat tiga permasalahan utama yang dihadapi dalam operasional pengantaran makanan. Pertama, kurir memerlukan informasi rute tercepat dari lokasi restoran menuju lokasi pelanggan agar pengantaran dapat diselesaikan tepat waktu. Kedua, kondisi jalan tidak selalu dapat diprediksi, kemacetan maupun penutupan jalan dapat terjadi kapan saja dan memaksa kurir untuk mencari jalur alternatif secara cepat. Ketiga, pesanan dapat masuk sewaktu-waktu dengan tingkat urgensi yang berbeda-beda, termasuk pesanan VIP yang masuk secara mendadak dan harus segera didahulukan tanpa mengabaikan pesanan lain yang sudah mengantre.<br>
 Ketiga permasalahan tersebut tidak dapat diselesaikan hanya dengan pendekatan manual. Diperlukan sebuah sistem yang mampu merepresentasikan jaringan jalan sebagai Weighted Undirected Graph, sehingga setiap perubahan kondisi jalan dapat langsung memengaruhi keputusan rute yang diambil. Selain itu, sistem juga harus dapat mengelola antrean pesanan berdasarkan tingkat kepentingannya, tidak hanya berdasarkan urutan masuknya pesanan. Dengan demikian, integrasi antara struktur data Graf dan Tree menjadi pendekatan yang relevan untuk menjawab kompleksitas operasional pengantaran makanan secara nyata.
 
-### 1.2 Rumusan Masalah 
+#### 1.2 Rumusan Masalah 
 Berdasarkan latar belakang di atas, rumusan masalah dalam project ini adalah sebagai berikut.
 Bagaimana menentukan rute tercepat dari lokasi restoran menuju lokasi pelanggan berdasarkan waktu tempuh pada jaringan jalan yang ada?
 Bagaimana sistem menentukan rute alternatif dan memvalidasi keterhubungan jaringan apabila terdapat jalan yang ditutup atau tidak dapat dilewati?
 Bagaimana menentukan urutan pengantaran yang optimal ketika terdapat banyak pesanan dengan tingkat prioritas dan deadline yang berbeda, termasuk pesanan VIP yang masuk secara mendadak?
 
-### 1.3 Tujuan
+#### 1.3 Tujuan
 Proyek ini bertujuan membangun sistem Food Delivery Route Optimizer berbasis Java yang mampu:
-Menentukan urutan pengantaran secara otomatis berdasarkan prioritas dan deadline menggunakan MinHeap, termasuk menangani order VIP yang masuk mendadak.
-Menentukan rute pengantaran tercepat serta menghitung total waktu dan jarak menggunakan algoritma Dijkstra pada Weighted Undirected Graph.
-Memvalidasi keterhubungan jaringan jalan menggunakan algoritma BFS.
-Mengintegrasikan struktur Tree dan Graph secara langsung, di mana order yang keluar dari MinHeap langsung diproses oleh Dijkstra untuk menentukan rute pengantarannya.
-Membandingkan tiga strategi pengantaran, yaitu berdasarkan prioritas pelanggan, deadline tercepat, dan jarak terdekat agar operator dapat memahami trade-off dari masing-masing pendekatan.
+- Menentukan urutan pengantaran secara otomatis berdasarkan prioritas dan deadline menggunakan MinHeap, termasuk menangani order VIP yang masuk mendadak.
+- Menentukan rute pengantaran tercepat serta menghitung total waktu dan jarak menggunakan algoritma Dijkstra pada Weighted Undirected Graph.
+- Memvalidasi keterhubungan jaringan jalan menggunakan algoritma BFS.
+- Mengintegrasikan struktur Tree dan Graph secara langsung, di mana order yang keluar dari MinHeap langsung diproses oleh Dijkstra untuk menentukan rute pengantarannya.
+- Membandingkan tiga strategi pengantaran, yaitu berdasarkan prioritas pelanggan, deadline tercepat, dan jarak terdekat agar operator dapat memahami trade-off dari masing-masing pendekatan.
 
-### 1.4 Batasan Sistem (Constraint)
-Sistem ini dibuat dengan batasan sebagai berikut.
-Struktur graph pengantaran terdiri atas 25 node yang merepresentasikan 6 restoran, 12 lokasi pelanggan, dan 7 simpang jalan.
-Graph dihubungkan oleh 41 edge dua arah dengan bobot utama berupa waktu tempuh dalam satuan menit.
-Setiap edge memiliki atribut tambahan berupa jarak, biaya, status jalan, dan rating jalan.
-Sistem dibuat tanpa menggunakan library graph atau tree dari pihak ketiga.
-Algoritma Dijkstra dan BFS diimplementasikan secara mandiri tanpa menggunakan implementasi bawaan Java.
-Data node, edge, dan order dibaca dari dataset sehingga dapat diperbarui tanpa mengubah kode program.
-Sistem dijalankan sebagai aplikasi command-line interface (CLI).
+#### 1.4 Batasan Sistem (Constraint)
+Sistem ini dibuat dengan batasan sebagai berikut:
+- Struktur graph pengantaran terdiri atas 25 node yang merepresentasikan 6 restoran, 12 lokasi pelanggan, dan 7 simpang jalan.
+- Graph dihubungkan oleh 41 edge dua arah dengan bobot utama berupa waktu tempuh dalam satuan menit.
+- Setiap edge memiliki atribut tambahan berupa jarak, biaya, status jalan, dan rating jalan.
+- Sistem dibuat tanpa menggunakan library graph atau tree dari pihak ketiga.
+- Algoritma Dijkstra dan BFS diimplementasikan secara mandiri tanpa menggunakan implementasi bawaan Java.
+- Data node, edge, dan order dibaca dari dataset sehingga dapat diperbarui tanpa mengubah kode program.
+- Sistem dijalankan sebagai aplikasi command-line interface (CLI).
 
 ### Dataset
 #### Gambaran Umum Dataset
@@ -111,8 +110,8 @@ Dataset yang digunakan dalam proyek ini merupakan dataset sintetis yang dirancan
 <img width="584" height="155" alt="Screenshot 2026-06-16 at 23 13 17" src="https://github.com/user-attachments/assets/8233a54f-bb6c-4c26-ae8a-695e1cdadb9a" />
 
 #### 2.2 Alasan Dataset Dibuat Sendiri
-	Dataset dibuat secara mandiri karena beberapa alasan:
-Tidak ada dataset publik yang sesuai. Dataset pengiriman makanan yang tersedia secara publik (seperti dari GrubHub atau Grab) umumnya hanya menyediakan data transaksional (waktu, jarak tempuh total), bukan data struktural graf yang mencakup node jalan/simpang, bobot tepi berlapis, dan relasi restoran-pelanggan secara simultan.
+Dataset dibuat secara mandiri karena beberapa alasan: <br>
+Tidak ada dataset publik yang sesuai. Dataset pengiriman makanan yang tersedia secara publik (seperti dari GrubHub atau Grab) umumnya hanya menyediakan data transaksional (waktu, jarak tempuh total), bukan data struktural graf yang mencakup node jalan/simpang, bobot tepi berlapis, dan relasi restoran-pelanggan secara simultan.<br>
 Fleksibilitas desain eksperimen. Dengan membuat dataset sendiri, struktur graf dapat disesuaikan untuk menguji berbagai kondisi seperti variasi prioritas pesanan, kepadatan node, dan distribusi jarak.
 Kontrol kualitas data. Dataset sintetis memungkinkan tidak ada nilai kosong (missing values) dan semua atribut dapat dikontrol untuk memastikan konsistensi pengujian algoritma.
 Representasi wilayah lokal. Dataset dirancang menggunakan koordinat geografis yang merepresentasikan kawasan kota Surabaya, sehingga lebih relevan dengan konteks penggunaan nyata.
@@ -128,18 +127,18 @@ Representasi wilayah lokal. Dataset dirancang menggunakan koordinat geografis ya
 
 ##### Seluruh data nodes:
 
-<img width="566" height="544" alt="Screenshot 2026-06-16 at 23 16 20" src="https://github.com/user-attachments/assets/d11484e8-79e4-475a-b29f-65509b7fb117" />
+<img width="566" height="544" alt="Screenshot 2026-06-16 at 23 16 20" src="https://github.com/user-attachments/assets/d11484e8-79e4-475a-b29f-65509b7fb117" /> <br>
 
 <img width="558" height="242" alt="Screenshot 2026-06-16 at 23 16 34" src="https://github.com/user-attachments/assets/e4e78785-c0e8-4e38-b26f-2b379ea29402" />
 
 #### 2.4 Penjelasan Pembagian Tipe Node
 
-Pembagian node menjadi tiga tipe didasarkan pada peran fungsional masing-masing titik dalam jaringan pengiriman:
-a) Restaurant (R) — 6 node (R1–R6)
-Node restoran berfungsi sebagai titik asal (source) dalam setiap order pengiriman. Pada restoran inilah makanan disiapkan dan menjadi titik keberangkatan kurir. Dalam pemodelan graf, node ini memiliki derajat keluar (out-degree) yang tinggi karena menjadi sumber banyak rute.
-b) Customer (C) — 12 node (C1–C12)
-Node pelanggan berfungsi sebagai titik tujuan (destination) pengiriman. Setiap pelanggan memiliki tenggat waktu (deadline) dan prioritas yang berbeda-beda, sehingga algoritma optimasi perlu memperhitungkan constraint ini saat merencanakan rute.
-c) Simpang (S) — 7 node (S1–S7)
+Pembagian node menjadi tiga tipe didasarkan pada peran fungsional masing-masing titik dalam jaringan pengiriman:<br>
+a) Restaurant (R) — 6 node (R1–R6)<br>
+Node restoran berfungsi sebagai titik asal (source) dalam setiap order pengiriman. Pada restoran inilah makanan disiapkan dan menjadi titik keberangkatan kurir. Dalam pemodelan graf, node ini memiliki derajat keluar (out-degree) yang tinggi karena menjadi sumber banyak rute.<br>
+b) Customer (C) — 12 node (C1–C12)<br>
+Node pelanggan berfungsi sebagai titik tujuan (destination) pengiriman. Setiap pelanggan memiliki tenggat waktu (deadline) dan prioritas yang berbeda-beda, sehingga algoritma optimasi perlu memperhitungkan constraint ini saat merencanakan rute.<br>
+c) Simpang (S) — 7 node (S1–S7)<br>
 Node simpang merepresentasikan persimpangan jalan atau titik perantara dalam jaringan jalan kota. Node ini tidak menjadi asal maupun tujuan pengiriman secara langsung, tetapi berperan sebagai relay point yang menghubungkan restoran dengan pelanggan melalui jalur yang lebih efisien. Keberadaan node simpang membuat pemodelan graf lebih realistis karena mencerminkan kondisi jaringan jalan nyata di mana kurir tidak selalu bisa langsung dari restoran ke pelanggan.
 
 #### 2.5 File Edges (edges_copy.csv)
@@ -161,19 +160,23 @@ Tiga karakteristik utama graph yang digunakan:
 - Weighted (Berbobot): Setiap edge memiliki bobot berupa waktuTempuh dalam satuan menit. Bobot ini menjadi penentu utama dalam pencarian rute terbaik oleh algoritma Dijkstra. Tanpa bobot, semua jalan dianggap sama dan sistem tidak bisa membedakan mana rute yang lebih cepat.
 - Undirected (Dua Arah): Setiap edge berlaku untuk kedua arah perjalanan. Jika ada jalan dari R1 ke S1, maka secara otomatis ada juga jalan dari S1 ke R1 dengan waktu tempuh yang sama. Ini merepresentasikan kondisi jalan dua arah di dunia nyata.
 - Connected (Terhubung): Dalam kondisi normal (tidak ada jalan yang ditutup), seluruh node dapat saling terhubung satu sama lain melalui jalur-jalur yang tersedia. Keterhubungan ini diverifikasi menggunakan algoritma BFS.
+  
 #### 3.2 Representasi: Adjacency List 
 Graph direpresentasikan menggunakan Adjacency List dengan struktur data berikut yang didefinisikan di Graph.java:
 ```
 Map<String, List<Edge>> adjacencyList;
 ```
 Setiap key berupa nodeId (String), dan value-nya adalah List<Edge> yang berisi semua tetangga dari node tersebut beserta seluruh atribut jalannya. Selain adjacency list, graph juga menyimpan semua node dalam:
-Map<String, Node> nodes;
 
-Sehingga informasi lengkap suatu node (nama, tipe, koordinat) bisa diakses langsung dari nodeId-nya.
-Contoh representasi adjacency list pada dataset:
-R1 (Restoran Makan Enak)   → S1(2m), R2(3m), C9(8m)
-S1 (Simpang Jl Raya Utama) → R1(2m), R2(2m), R5(2m), S2(2m), S3(3m), C1(4m)
-C1 (Pelanggan Budi)        → R2(5m), S1(4m), C2(3m)
+```
+Map<String, Node> nodes;
+```
+
+Sehingga informasi lengkap suatu node (nama, tipe, koordinat) bisa diakses langsung dari nodeId-nya.<br>
+Contoh representasi adjacency list pada dataset:<br>
+R1 (Restoran Makan Enak)   → S1(2m), R2(3m), C9(8m)<br>
+S1 (Simpang Jl Raya Utama) → R1(2m), R2(2m), R5(2m), S2(2m), S3(3m), C1(4m)<br>
+C1 (Pelanggan Budi)        → R2(5m), S1(4m), C2(3m)<br>
 
 <img width="934" height="578" alt="Screenshot 2026-06-16 165758" src="https://github.com/user-attachments/assets/8a9332d9-c454-4357-a2f0-14cf79721d0d" />
 
@@ -184,67 +187,74 @@ Dataset menggunakan 25 node yang dibagi menjadi 3 tipe berdasarkan perannya dala
 <img width="649" height="173" alt="Screenshot 2026-06-16 232244" src="https://github.com/user-attachments/assets/3e39e8ea-30b1-4d0c-b945-8263efc12671" /><br>
 Node bertipe Simpang berperan penting sebagai jembatan konektivitas yang memungkinkan kurir berpindah dari zona restoran ke zona pelanggan yang tidak terhubung langsung. Misalnya, untuk mencapai C1 dari R1, kurir harus melewati S1 terlebih dahulu karena R1 dan C1 tidak terhubung langsung.<br>
 Semua node di-load dari nodes.csv melalui CSVLoader.loadNodes() saat program pertama kali dijalankan, dan disimpan di Map<String, Node> nodes di dalam Graph.
+
 #### 3.4 Penjelasan Edge
 Edge merepresentasikan jalan yang menghubungkan dua node. Setiap edge memiliki 5 atribut tambahan yang didefinisikan dalam Edge.java: <br>
+
 <img width="488" height="217" alt="image" src="https://github.com/user-attachments/assets/2719511b-ef1f-400f-86ef-9f2e863b2aeb" /> <br>
+
 Dataset memiliki 40 edge di edges.csv yang semuanya berstatus "Lancar" pada kondisi awal. Karena graph bersifat undirected, setiap baris di CSV menghasilkan dua directed edge di adjacency list, satu arah asli dan satu arah balik, sehingga total edge di adjacency list menjadi 82 directed edges. <br>
 Pemilihan waktuTempuh sebagai bobot utama (bukan jarak) didasarkan pada tujuan sistem yakni mengoptimalkan kecepatan pengantaran, bukan meminimalkan kilometer. Jalan yang lebih panjang bisa saja lebih cepat jika kondisinya lebih lancar. Total jarak dan biaya tetap dihitung dan ditampilkan di ShortestPathResult sebagai informasi tambahan bagi kurir.
 
 #### 3.5 Alasan Memilih Adjacency List
-Keputusan menggunakan Adjacency List dibandingkan Adjacency Matrix didasarkan pada dua alasan utama: efisiensi memori dan karakteristik graph.
+Keputusan menggunakan Adjacency List dibandingkan Adjacency Matrix didasarkan pada dua alasan utama: efisiensi memori dan karakteristik graph. <br>
 
 <img width="499" height="344" alt="image" src="https://github.com/user-attachments/assets/d3322edc-7718-48e6-a975-dbd4fbda1b63" /> <br>
+
 Algoritma Dijkstra dan BFS pada implementasi ini sangat sering melakukan iterasi tetangga suatu node. Dengan Adjacency List, iterasi hanya menyentuh node yang benar-benar terhubung (O(degree)), sedangkan jika menggunakan Matrix harus scan semua 25 kolom meskipun sebagian besar kosong (O(V)). <br>
 Satu-satunya keunggulan Matrix adalah cek edge langsung O(1), namun operasi ini tidak sering dilakukan dalam implementasi Dijkstra dan BFS, sehingga tidak menjadi faktor penentu.
+
 #### 3.6 Fitur closedEdges — Simulasi Jalan Tertutup
 Sistem menyediakan fitur simulasi penutupan jalan menggunakan sebuah Set<String> bernama closedEdges yang didefinisikan di Graph.java:
+
 ```
 Set<String> closedEdges = new HashSet<>();
 ```
+
 Dipilihnya HashSet (bukan List atau Array) karena operasi contains() pada HashSet berjalan dalam O(1), sedangkan List butuh O(n). Mengingat isEdgeActive() dipanggil setiap kali Dijkstra atau BFS melewati sebuah edge, yang bisa ratusan kali dalam satu pencarian rute. Olrh ksrena itu, efisiensi ini sangat penting.
 
 ### Struktur Tree yang digunakan
 
 #### 4.1 Jenis Tree yang Digunakan
-Pada proyek Food Delivery Route Optimizer, struktur tree yang digunakan adalah Min-Heap (Binary Heap). Min-Heap merupakan struktur data berbentuk pohon biner lengkap (Complete Binary Tree) yang disimpan menggunakan ArrayList.
-Karakteristik utama Min-Heap adalah setiap parent node memiliki nilai prioritas yang lebih tinggi dibandingkan child node-nya. Dengan demikian, elemen dengan prioritas tertinggi selalu berada pada root (indeks 0) sehingga dapat diakses dengan cepat.
+Pada proyek Food Delivery Route Optimizer, struktur tree yang digunakan adalah Min-Heap (Binary Heap). Min-Heap merupakan struktur data berbentuk pohon biner lengkap (Complete Binary Tree) yang disimpan menggunakan ArrayList. <br>
+Karakteristik utama Min-Heap adalah setiap parent node memiliki nilai prioritas yang lebih tinggi dibandingkan child node-nya. Dengan demikian, elemen dengan prioritas tertinggi selalu berada pada root (indeks 0) sehingga dapat diakses dengan cepat. <br>
 Implementasi Min-Heap digunakan untuk mengatur antrian pesanan makanan agar sistem dapat menentukan pesanan mana yang harus diproses terlebih dahulu.
 
 #### 4.2 Tujuan Penggunaan Min-Heap
 Min-Heap digunakan sebagai struktur antrian order karena memiliki efisiensi yang baik dalam operasi penyisipan dan pengambilan data.
-Tujuan utama penggunaannya adalah:
-Menyimpan seluruh order yang masuk ke sistem.
-Menentukan urutan pengantaran berdasarkan prioritas.
-Mengambil order dengan prioritas tertinggi secara cepat.
-Menangani order mendadak (VIP Order).
-Aturan prioritas yang digunakan adalah:
+Tujuan utama penggunaannya adalah:<br>
+- Menyimpan seluruh order yang masuk ke sistem.
+- Menentukan urutan pengantaran berdasarkan prioritas.
+- Mengambil order dengan prioritas tertinggi secara cepat.
+- Menangani order mendadak (VIP Order).
+- Aturan prioritas yang digunakan adalah:
 
 <img width="631" height="137" alt="Screenshot 2026-06-16 at 23 28 07" src="https://github.com/user-attachments/assets/80c007ae-9184-45f3-869d-a6e655fa2f66" />
 
-Urutan pemrosesan:
-Prioritas lebih tinggi didahulukan (Urgent > High > Normal).
+Urutan pemrosesan:<br>
+Prioritas lebih tinggi didahulukan (Urgent > High > Normal).<br>
 Jika prioritas sama, maka order dengan deadline lebih kecil diproses terlebih dahulu.
-
 
 #### 4.3 Hubungan dengan Order.compareTo()
 
 Pengurutan pada Min-Heap tidak dilakukan secara langsung oleh heap, melainkan menggunakan method compareTo() pada class Order.
 Secara logika:
 
-
 <img width="348" height="101" alt="Screenshot 2026-06-16 at 23 28 46" src="https://github.com/user-attachments/assets/7ed8fa13-60f0-4e31-9e39-ed5dbbb8c8f6" />
 
-Ketika dua order dibandingkan:
-Sistem akan membandingkan nilai prioritas terlebih dahulu.
-Jika prioritas berbeda, order dengan prioritas lebih tinggi dianggap lebih penting.
-Jika prioritas sama, sistem membandingkan deadline.
-Deadline yang lebih kecil akan mendapatkan prioritas lebih tinggi.
+Ketika dua order dibandingkan: 
+- Sistem akan membandingkan nilai prioritas terlebih dahulu.
+- Jika prioritas berbeda, order dengan prioritas lebih tinggi dianggap lebih penting.
+- Jika prioritas sama, sistem membandingkan deadline.
+- Deadline yang lebih kecil akan mendapatkan prioritas lebih tinggi.
+  
 Contoh:
 
 <img width="629" height="96" alt="Screenshot 2026-06-16 at 23 29 07" src="https://github.com/user-attachments/assets/bfdeab3f-77e2-4469-8f63-4e120362cb2e" />
 
-Karena prioritas sama, maka:
+Karena prioritas sama, maka:<br>
 02 diproses terlebih dahulu karena memiliki “deadline” yang lebih kecil
+
 #### 4.4 Cara Kerja Enqueue (Insert)
 Method:
 
@@ -258,22 +268,18 @@ Langkah-langkah:
 
 <img width="619" height="66" alt="Screenshot 2026-06-16 at 23 30 44" src="https://github.com/user-attachments/assets/052e6a25-7abc-48a0-95f6-a81cb3e96ad4" />
 
+Setelah dimasukkan, order akan dibandingkan dengan parent-nya. Jika order memiliki prioritas lebih tinggi, maka dilakukan pertukaran posisi (swap). <br>
+Proses ini terus dilakukan hingga: mencapai root, atau parent memiliki prioritas lebih tinggi.
 
-Setelah dimasukkan, order akan dibandingkan dengan parent-nya.
-Jika order memiliki prioritas lebih tinggi, maka dilakukan pertukaran posisi (swap).
-Proses ini terus dilakukan hingga:
-mencapai root, atau
-parent memiliki prioritas lebih tinggi.
 #### 4.5 Cara Kerja Dequeue (Remove Root)
 Method:
 
 <img width="631" height="68" alt="Screenshot 2026-06-16 at 23 31 09" src="https://github.com/user-attachments/assets/b1a2bfe1-da16-4bc7-ab9f-9b73a2298ad4" />
 
-digunakan untuk mengambil order dengan prioritas tertinggi.
-Karena root selalu menyimpan order terbaik, maka order tersebut langsung diambil.
-Langkah-langkah
-1. Simpan root
+digunakan untuk mengambil order dengan prioritas tertinggi. Karena root selalu menyimpan order terbaik, maka order tersebut langsung diambil.<br>
+Langkah-langkah:
 
+1. Simpan root
 
 <img width="622" height="42" alt="Screenshot 2026-06-16 at 23 31 28" src="https://github.com/user-attachments/assets/701357f4-9645-43da-839c-6d05283a3f5a" />
 
@@ -289,47 +295,45 @@ Langkah-langkah
    
 <img width="630" height="32" alt="Screenshot 2026-06-16 at 23 32 34" src="https://github.com/user-attachments/assets/edd742ed-b958-42dc-b53e-8ccfdca1b7c7" />
 
-Elemen root yang baru akan dibandingkan dengan kedua child-nya.
-Jika child memiliki prioritas lebih tinggi, maka dilakukan swap.
-Proses berlangsung sampai struktur heap kembali valid.
+Elemen root yang baru akan dibandingkan dengan kedua child-nya. Jika child memiliki prioritas lebih tinggi, maka dilakukan swap. Proses berlangsung sampai struktur heap kembali valid.
+
 #### 4.6 Heapify-Up dan Heapify-Down
-Heapify-Up
-Digunakan saat insert data baru.
-Algoritma:
-Bandingkan node dengan parent.
-Jika prioritas node lebih tinggi, lakukan swap.
-Ulangi hingga heap valid.
+- Heapify-Up
+Digunakan saat insert data baru. Algoritma: <br>
+Bandingkan node dengan parent. Jika prioritas node lebih tinggi, lakukan swap. Ulangi hingga heap valid. <br>
+
 Fungsi:
 
 <img width="646" height="83" alt="Screenshot 2026-06-16 at 23 33 04" src="https://github.com/user-attachments/assets/2906de2a-50d2-432c-831d-d95940fb6daa" />
 
-Heapify-Down
-Digunakan setelah root dihapus.
-Algoritma:
-Bandingkan parent dengan kedua child.
-Cari child dengan prioritas tertinggi.
-Tukar posisi jika diperlukan.
-Ulangi hingga heap valid.
+- Heapify-Down
+Digunakan setelah root dihapus. Algoritma: <br>
+Bandingkan parent dengan kedua child. Cari child dengan prioritas tertinggi. Tukar posisi jika diperlukan. Ulangi hingga heap valid. <br>
+
 Fungsi:
 
 <img width="632" height="64" alt="Screenshot 2026-06-16 at 23 33 27" src="https://github.com/user-attachments/assets/a2311bc9-f408-4089-89ba-52135d89aba3" />
 
-4.7 Penanganan VIP Order
-Sistem menyediakan fitur:
-untuk menangani pesanan VIP yang masuk secara mendadak.
+#### 4.7 Penanganan VIP Order
+
+Sistem menyediakan fitur untuk menangani pesanan VIP yang masuk secara mendadak.
 
 <img width="624" height="75" alt="Screenshot 2026-06-16 at 23 33 44" src="https://github.com/user-attachments/assets/c926f9e3-4d10-40f0-807b-6b0649c406e8" />
 Impelementasinya:
 
 <img width="635" height="48" alt="Screenshot 2026-06-16 at 23 33 58" src="https://github.com/user-attachments/assets/e3e14225-8b0d-4510-b312-786ac0a164bc" />
 
-VIP order akan dimasukkan ke heap seperti order biasa, kemudian dilakukan proses heapifyUp().
+VIP order akan dimasukkan ke heap seperti order biasa, kemudian dilakukan proses heapifyUp(). <br>
 Karena VIP order umumnya memiliki prioritas paling tinggi, order tersebut akan bergerak ke atas heap dan berpotensi menjadi root.
+
 #### 4.8 Kesimpulan
 Min-Heap digunakan sebagai struktur data utama untuk mengelola antrian pengantaran makanan. Struktur ini memungkinkan sistem mengambil order dengan prioritas tertinggi secara efisien menggunakan operasi enqueue, dequeue, heapifyUp, dan heapifyDown. Pengurutan order ditentukan oleh method compareTo() dengan aturan Urgent > High > Normal, kemudian mempertimbangkan deadline terkecil. Selain itu, sistem juga mendukung penanganan VIP Order sehingga pesanan penting dapat segera diprioritaskan dalam antrian pengantaran.
 
 ### Algoritma yang digunakan
-Sistem Food Delivery Route Optimizer mengimplementasikan dua algoritma graph: Dijkstra untuk mencari rute pengantaran tercepat, dan BFS untuk memvalidasi keterhubungan antar lokasi. Keduanya diimplementasikan secara mandiri di Graph.java tanpa menggunakan library eksternal. 
+Sistem Food Delivery Route Optimizer mengimplementasikan dua algoritma graph:
+- Dijkstra untuk mencari rute pengantaran tercepat,
+- BFS untuk memvalidasi keterhubungan antar lokasi.<br>
+Keduanya diimplementasikan secara mandiri di Graph.java tanpa menggunakan library eksternal. 
 #### 5.1 Algoritma Dijkstra 
 ##### 5.1.1 Tujuan
 Dijkstra digunakan untuk mencari rute tercepat dari node asal ke node tujuan berdasarkan bobot waktuTempuh (menit). Setiap kali kurir hendak mengantarkan order, Dijkstra menentukan jalur mana yang harus dilewati agar waktu pengantaran paling singkat.
@@ -337,11 +341,13 @@ Dijkstra digunakan untuk mencari rute tercepat dari node asal ke node tujuan ber
 Dijkstra pada implementasi ini menggunakan tiga struktur data yang bekerja bersama:
 
 1. dist : Menyimpan waktu tercepat ke setiap node
+   
 ```
 Map<String, Integer> dist = new HashMap<>();
 ```
 
 Pada awalnya, semua node diisi nilai Integer.MAX_VALUE (tak terhingga) karena belum diketahui jalurnya. Node awal diisi 0 karena kurir sudah berada di sana. Setiap kali ditemukan jalur yang lebih cepat, nilai ini diperbarui.
+
 2. prev : Menyimpan jejak jalur
 
 ```
@@ -352,15 +358,16 @@ Menyimpan informasi "node ini dicapai dari mana." Digunakan di akhir proses untu
 
 Contoh: jika prev["C1"] = "S1" dan prev["S1"] = "R1", maka jalurnya adalah R1 → S1 → C1.
 4. Priority Queue : Selalu proses yang tercepat dulu
+
 ```
 PriorityQueue<String> queue = new PriorityQueue<>(
 Comparator.comparingInt(id -> dist.getOrDefault(id, Integer.MAX_VALUE)));
 ```
-
 Priority Queue memastikan node dengan waktu tempuh terkecil selalu diproses lebih dulu. Inilah yang membuat Dijkstra efisien, alias jalur yang paling menjanjikan dieksplorasi lebih awal.
 
 ##### 5.1.3 Skip Edge yang Ditutup
 Sebelum memproses setiap edge, Dijkstra memanggil isEdgeActive() untuk mengecek apakah jalan tersebut sedang aktif atau ditutup:
+
 ```
 for (Edge edge : neighbors) {
     if (!isEdgeActive(current, edge.destination)) continue; // skip jalan tutup
@@ -377,6 +384,7 @@ Jika jalan S1↔S2 ditutup, Dijkstra otomatis melewatinya dan mencari jalur alte
 
 ##### 5.1.4 ShortestPathResult 
 Hasil Dijkstra dikemas dalam inner class ShortestPathResult yang berisi empat informasi sekaligus: 
+
 <img width="442" height="109" alt="image" src="https://github.com/user-attachments/assets/e745a4d1-3b4b-482e-a8c8-1223777ad2a6" />
 
 Total jarak & biaya dihitung dengan menelusuri setiap edge di sepanjang path:
@@ -389,12 +397,13 @@ for (int i = 0; i < path.size() - 1; i++) {
         totalBiaya += e.biaya;
     }
 }
-
 ```
+
 Screenshot result.display() : <br>
 <img width="455" height="247" alt="image" src="https://github.com/user-attachments/assets/9882e8f4-a1e4-475a-849e-2feccf744dd0" />
 
 ##### 5.1.5 Kompleksitas Dijkstra
+
 <img width="442" height="85" alt="image" src="https://github.com/user-attachments/assets/99fa8f25-c201-4b02-85e1-5da23f0c74df" /> <br>
 Untuk dataset ini: V=25, E=82, sehingga O((25+82) × log 25) ≈ 107 × 4.64 ≈ 496 operasi.
 
@@ -404,8 +413,7 @@ Untuk dataset ini: V=25, E=82, sehingga O((25+82) × log 25) ≈ 107 × 4.64 ≈
 BFS digunakan untuk memvalidasi keterhubungan area, seperti memastikan bahwa dari suatu lokasi masih bisa dicapai lokasi lain, terutama setelah ada simulasi penutupan jalan. Berbeda dengan Dijkstra yang memperhitungkan bobot, BFS hanya peduli apakah jalur ada atau tidak. 
 
 ##### 5.2.2 Tiga Varian BFS
-- Varian 1 : isConnected(startId, endId)
-  
+- Varian 1 : isConnected(startId, endId) <br>
 Mengecek apakah dua node masih terhubung, mengembalikan true atau false. Begitu node tujuan ditemukan, BFS langsung berhenti tanpa perlu menjelajahi seluruh graph.
 
 ```
@@ -424,15 +432,14 @@ return false;
 ```
 
 Dipanggil di checkConnectivity() - menu Simulasi → Cek Keterhubungan BFS. User memilih dua lokasi dan sistem menampilkan apakah keduanya masih terhubung setelah simulasi penutupan jalan.
-- Varian 2  : bfsLevelTraversal(startId)
-  
-Mengembalikan semua node yang bisa dicapai dari startId. BFS berjalan sampai habis tanpa berhenti di node tertentu. Berguna untuk melihat dampak menyeluruh dari penutupan jalan, node yang tidak masuk ke dalam hasil berarti areanya terisolasi. 
 
+- Varian 2  : bfsLevelTraversal(startId)<br>
+Mengembalikan semua node yang bisa dicapai dari startId. BFS berjalan sampai habis tanpa berhenti di node tertentu. Berguna untuk melihat dampak menyeluruh dari penutupan jalan, node yang tidak masuk ke dalam hasil berarti areanya terisolasi. <br>
 Dipanggil di TestGraph.java untuk keperluan pengujian konektivitas graph setelah simulasi. 
 
-- Varian 3 : isConnected(startId, endId)
-- 
-BFS dengan visualisasi level — setiap node ditampilkan beserta levelnya dari titik awal. Digunakan untuk memperlihatkan struktur jaringan secara visual saat demo. Contoh output dari S1:
+- Varian 3 : isConnected(startId, endId) <br>
+BFS dengan visualisasi level — setiap node ditampilkan beserta levelnya dari titik awal. Digunakan untuk memperlihatkan struktur jaringan secara visual saat demo.<br>
+Contoh output dari S1:
 
 Level 0 → S1 (Simpang Jl Raya Utama) <br>
 Level 1 → R1 (Restoran Makan Enak)<br>
@@ -444,6 +451,7 @@ Level 3 → C8 (Pelanggan Ani) <br>
 Dipanggil di TestGraph.java untuk keperluan visualisasi.<br>
 
 Screenshot result.display() : 
+
 <img width="379" height="455" alt="Screenshot 2026-06-16 185206" src="https://github.com/user-attachments/assets/4af0bad4-66d8-4719-8c68-631a072a2cf2" />
 
 ##### 5.2.3 Kompleksitas BFS 
@@ -452,29 +460,21 @@ Screenshot result.display() :
 
 Untuk dataset ini: O(25+82) = O(107 operasi). Lebih cepat dari Dijkstra karena tidak menggunakan Priority Queue.
 
-
-
-
-
-
 ### Design Decision Log
 
 <img width="662" height="767" alt="image" src="https://github.com/user-attachments/assets/ecd876f9-6b2c-4cd6-87cd-a30c55f71c8f" />
 
-Keputusan desain pada sistem tidak hanya ditentukan berdasarkan kemudahan implementasi, tetapi juga mempertimbangkan efisiensi struktur data dan kesesuaian terhadap kebutuhan studi kasus. Graph direpresentasikan menggunakan Adjacency List karena lebih sesuai untuk graph sparse dan menghemat penggunaan memori dibanding Adjacency Matrix. 
-Untuk proses routing dipilih algoritma Dijkstra karena sistem menggunakan bobot waktu tempuh sehingga pencarian rute tidak cukup hanya menggunakan traversal biasa.
-Pengelolaan order dilakukan menggunakan MinHeap agar proses pemilihan order dapat mempertimbangkan prioritas dan deadline secara otomatis. 
-Sistem juga menggunakan HashSet untuk menyimpan jalan yang ditutup agar proses pengecekan status edge tetap cepat ketika Dijkstra dan BFS berjalan. 
-Dataset disimpan dalam format CSV agar seluruh anggota kelompok dapat memperbarui data tanpa harus mengubah source code.
+Keputusan desain pada sistem tidak hanya ditentukan berdasarkan kemudahan implementasi, tetapi juga mempertimbangkan efisiensi struktur data dan kesesuaian terhadap kebutuhan studi kasus. Graph direpresentasikan menggunakan Adjacency List karena lebih sesuai untuk graph sparse dan menghemat penggunaan memori dibanding Adjacency Matrix. <br>
+Untuk proses routing dipilih algoritma Dijkstra karena sistem menggunakan bobot waktu tempuh sehingga pencarian rute tidak cukup hanya menggunakan traversal biasa. Pengelolaan order dilakukan menggunakan MinHeap agar proses pemilihan order dapat mempertimbangkan prioritas dan deadline secara otomatis.<br> 
+Sistem juga menggunakan HashSet untuk menyimpan jalan yang ditutup agar proses pengecekan status edge tetap cepat ketika Dijkstra dan BFS berjalan. Dataset disimpan dalam format CSV agar seluruh anggota kelompok dapat memperbarui data tanpa harus mengubah source code. <br>
 Selain itu, dipilih pendekatan Weighted Undirected Graph karena lebih sesuai untuk merepresentasikan jaringan jalan pada simulasi delivery. Node disimpan menggunakan HashMap agar pencarian berdasarkan ID efisien, sedangkan aplikasi dijalankan menggunakan Command Line Interface untuk menjaga fokus pengerjaan pada implementasi struktur data dibanding pengembangan antarmuka.
-
-
 
 ### Tracing
 
 #### 7.1 Tracing MinHeap
 
-Tracing dilakukan untuk memverifikasi bahwa struktur data MinHeap dapat mempertahankan urutan prioritas order secara benar. Pada simulasi ini digunakan tiga data order, yaitu ORD010 dengan prioritas Urgent, ORD004 dengan prioritas High, dan ORD001 dengan prioritas Normal.
+Tracing dilakukan untuk memverifikasi bahwa struktur data MinHeap dapat mempertahankan urutan prioritas order secara benar.<br>
+Pada simulasi ini digunakan tiga data order, yaitu ORD010 dengan prioritas Urgent, ORD004 dengan prioritas High, dan ORD001 dengan prioritas Normal.
 
 | Order ID | Priority | Deadline |
 | -------- | -------- | -------- |
@@ -482,7 +482,7 @@ Tracing dilakukan untuk memverifikasi bahwa struktur data MinHeap dapat memperta
 | ORD004   | High     | 18       |
 | ORD001   | Normal   | 15       |
 
-##### 7.1.1 Insert ORD010 (Urgent, 16)
+###### 7.1.1 Insert ORD010 (Urgent, 16)
 
 Setelah `enqueue(ORD010)`:
 
@@ -492,9 +492,7 @@ Setelah `enqueue(ORD010)`:
 
 Karena node berada pada root, proses heapify-up tidak melakukan perpindahan.
 
----
-
-##### 7.1.2 Insert ORD004 (High, 18)
+###### 7.1.2 Insert ORD004 (High, 18)
 
 Array setelah insert:
 
@@ -515,16 +513,11 @@ Representasi heap:
 
 <img width="192" height="190" alt="Screenshot 2026-06-16 204000" src="https://github.com/user-attachments/assets/744fc5e4-a0ea-4748-bf11-3bd0d0385949" />
 
-
----
-
-##### 7.1.3 Insert ORD001 (Normal, 15)
+###### 7.1.3 Insert ORD001 (Normal, 15)
 
 Array setelah insert:
 
-
 <img width="650" height="288" alt="Screenshot 2026-06-16 204035" src="https://github.com/user-attachments/assets/5ae2f0a0-7e83-49ec-a824-ba12ff79aa1f" />
-
 
 Perbandingan:
 
@@ -539,15 +532,11 @@ Representasi heap:
 
 <img width="713" height="706" alt="Screenshot 2026-06-16 204221" src="https://github.com/user-attachments/assets/2e712663-4b38-4581-9c01-b685256e4c40" />
 
-
-
 Array final:
 
 ```text
 [ORD010, ORD004, ORD001]
 ```
-
----
 
 ##### 7.1.4 Dequeue dan Heapify-Down
 
@@ -557,9 +546,7 @@ Root heap:
 ORD010
 ```
 
-Node terakhir (`ORD001`) dipindahkan ke root.
-
-Array sebelum heapify-down:
+Node terakhir (`ORD001`) dipindahkan ke root. Array sebelum heapify-down:
 
 ```text
 [ORD001, ORD004]
@@ -580,18 +567,13 @@ Array akhir:
 
 Representasi heap:
 
-
 <img width="683" height="298" alt="Screenshot 2026-06-16 204511" src="https://github.com/user-attachments/assets/67470b00-a214-4d26-96ed-0f13c36265c4" />
-
-
 
 Hasil dequeue:
 
 ```text
 ORD010
 ```
-
----
 
 #### 7.2 Tracing Algoritma Dijkstra (R1 → C1)
 
@@ -616,8 +598,6 @@ Priority Queue:
 [R1:0]
 ```
 
----
-
 ##### 7.2.2 Iterasi Algoritma
 
 | Iterasi | Node Diproses (dist) | Hasil Relaksasi                      |
@@ -628,8 +608,6 @@ Priority Queue:
 | 4       | S2 (4)               | Update node lain                     |
 | 5       | S3 (5)               | Update node lain                     |
 | 6       | C1 (6)               | Tujuan ditemukan, algoritma berhenti |
-
----
 
 ##### 7.2.3 Rekonstruksi Path
 
@@ -651,8 +629,6 @@ Dibalik menjadi:
 ```text
 R1 → S1 → C1
 ```
-
----
 
 ##### 7.2.4 Hasil Akhir
 
@@ -688,8 +664,6 @@ R1 → R2 → C1 = 8 menit
 
 Karena lebih lambat, jalur tersebut tidak dipilih oleh Dijkstra.
 
----
-
 #### 7.3 Tracing Edge Case: Semua Jalan dari R1 Ditutup
 
 Simulasi dilakukan dengan menutup seluruh edge yang terhubung langsung ke R1:
@@ -701,8 +675,6 @@ graph.closeEdge("R1", "C9");
 ```
 
 Akibatnya node R1 menjadi terisolasi dari graph.
-
----
 
 ##### 7.3.1 Tracing BFS
 
@@ -728,8 +700,6 @@ false
 ```
 
 Artinya C1 tidak dapat dicapai dari R1.
-
----
 
 ##### 7.3.2 Tracing Dijkstra (R1, C1)
 
@@ -774,8 +744,6 @@ dan sistem menampilkan pesan:
 Tidak ada jalur dari R1 ke C1
 ```
 
----
-
 ##### 7.3.3 Kesimpulan Edge Case
 
 Hasil tracing menunjukkan bahwa mekanisme `closedEdges` bekerja konsisten pada BFS maupun Dijkstra. Ketika seluruh jalur keluar dari node awal ditutup:
@@ -783,7 +751,6 @@ Hasil tracing menunjukkan bahwa mekanisme `closedEdges` bekerja konsisten pada B
 1. BFS tidak dapat menemukan node tujuan sehingga menghasilkan `false`.
 2. Dijkstra tidak dapat melakukan relaksasi sehingga `dist[endId]` tetap bernilai `Integer.MAX_VALUE`.
 3. Sistem menyimpulkan bahwa tidak tersedia rute yang dapat digunakan untuk pengantaran.
-
 
 ### Screenshot Hasil Program
 
@@ -805,8 +772,6 @@ Hasil tracing menunjukkan bahwa mekanisme `closedEdges` bekerja konsisten pada B
 ╚══════════════════════════════════════════════════╝
 ```
 
----
-
 #### Menu Simulasi
 
 ```text
@@ -821,7 +786,6 @@ Hasil tracing menunjukkan bahwa mekanisme `closedEdges` bekerja konsisten pada B
 ╚══════════════════════════════════════════════════╝
 ```
 Screenshot lengkap terdapat di laporan.pdf
-
 
 ### Analisis Kompleksitas
 
@@ -896,7 +860,7 @@ Akibatnya:
 - Penggunaan memori meningkat.
 - Waktu komputasi pencarian rute menjadi lebih lama.
 
-### c. Dampak terhadap MinHeap
+##### c. Dampak terhadap MinHeap
 
 MinHeap tidak menyimpan node graph, melainkan antrian order.
 
@@ -914,7 +878,7 @@ Namun apabila jumlah order meningkat seiring pertumbuhan node:
 - Ukuran heap menjadi lebih besar.
 - Penggunaan memori meningkat.
 
-### d. Kesimpulan
+##### d. Kesimpulan
 
 Bottleneck utama sistem berada pada proses pencarian rute dalam Graph.
 
@@ -950,8 +914,6 @@ Namun waktu pengiriman dapat meningkat apabila rute alternatif lebih panjang.
 
 Sistem tetap dapat beroperasi selama masih tersedia jalur alternatif yang menghubungkan titik asal dan tujuan.
 
----
-
 #### 10.3 Skenario Perubahan Bobot Edge Akibat Kemacetan
 
 ##### a. Kondisi Awal
@@ -974,8 +936,6 @@ Tidak ada dampak langsung terhadap MinHeap karena prioritas order tidak bergantu
 ##### d. Kesimpulan
 
 Sistem mampu beradaptasi terhadap perubahan kondisi lalu lintas selama data bobot edge diperbarui.
-
----
 
 #### 10.4 Skenario Node Tidak Ditemukan
 
@@ -1001,8 +961,6 @@ Tidak ada pengaruh terhadap struktur heap.
 ##### d. Kesimpulan
 
 Sistem harus melakukan validasi input terlebih dahulu dan menampilkan pesan kesalahan yang sesuai.
-
----
 
 #### 10.5 Skenario Graph Tidak Terhubung
 
