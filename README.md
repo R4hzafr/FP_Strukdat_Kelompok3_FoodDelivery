@@ -262,9 +262,9 @@ Method:
 
 Langkah-langkah:
 1. Insert ke posisi terakhir <br>
-   <img width="632" height="55" alt="Screenshot 2026-06-16 at 23 30 09" src="https://github.com/user-attachments/assets/e7f79d1b-2b54-4475-994f-62caddcb1c22" />
+   <img width="632" height="55" alt="Screenshot 2026-06-16 at 23 30 09" src="https://github.com/user-attachments/assets/e7f79d1b-2b54-4475-994f-62caddcb1c22" /> <br>
 
-2. Heapify-Up
+2. Heapify-Up <br>
 
 <img width="619" height="66" alt="Screenshot 2026-06-16 at 23 30 44" src="https://github.com/user-attachments/assets/052e6a25-7abc-48a0-95f6-a81cb3e96ad4" /> <br>
 
@@ -317,7 +317,7 @@ Fungsi:
 
 Sistem menyediakan fitur untuk menangani pesanan VIP yang masuk secara mendadak.
 
-<img width="624" height="75" alt="Screenshot 2026-06-16 at 23 33 44" src="https://github.com/user-attachments/assets/c926f9e3-4d10-40f0-807b-6b0649c406e8" />
+<img width="624" height="75" alt="Screenshot 2026-06-16 at 23 33 44" src="https://github.com/user-attachments/assets/c926f9e3-4d10-40f0-807b-6b0649c406e8" /> <br>
 Impelementasinya:
 
 <img width="635" height="48" alt="Screenshot 2026-06-16 at 23 33 58" src="https://github.com/user-attachments/assets/e3e14225-8b0d-4510-b312-786ac0a164bc" />
