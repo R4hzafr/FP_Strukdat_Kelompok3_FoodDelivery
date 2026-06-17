@@ -261,25 +261,24 @@ Method:
 <img width="627" height="65" alt="Screenshot 2026-06-16 at 23 29 45" src="https://github.com/user-attachments/assets/67d658b4-9c8b-4d0c-84a7-d29b13e1b706" />
 
 Langkah-langkah:
-1. Insert ke posisi terakhir
+1. Insert ke posisi terakhir <br>
    <img width="632" height="55" alt="Screenshot 2026-06-16 at 23 30 09" src="https://github.com/user-attachments/assets/e7f79d1b-2b54-4475-994f-62caddcb1c22" />
 
 2. Heapify-Up
 
-<img width="619" height="66" alt="Screenshot 2026-06-16 at 23 30 44" src="https://github.com/user-attachments/assets/052e6a25-7abc-48a0-95f6-a81cb3e96ad4" />
+<img width="619" height="66" alt="Screenshot 2026-06-16 at 23 30 44" src="https://github.com/user-attachments/assets/052e6a25-7abc-48a0-95f6-a81cb3e96ad4" /> <br>
 
 Setelah dimasukkan, order akan dibandingkan dengan parent-nya. Jika order memiliki prioritas lebih tinggi, maka dilakukan pertukaran posisi (swap). <br>
 Proses ini terus dilakukan hingga: mencapai root, atau parent memiliki prioritas lebih tinggi.
 
 #### 4.5 Cara Kerja Dequeue (Remove Root)
-Method:
-
+Method:<br>
 <img width="631" height="68" alt="Screenshot 2026-06-16 at 23 31 09" src="https://github.com/user-attachments/assets/b1a2bfe1-da16-4bc7-ab9f-9b73a2298ad4" />
 
 digunakan untuk mengambil order dengan prioritas tertinggi. Karena root selalu menyimpan order terbaik, maka order tersebut langsung diambil.<br>
 Langkah-langkah:
 
-1. Simpan root
+1. Simpan root 
 
 <img width="622" height="42" alt="Screenshot 2026-06-16 at 23 31 28" src="https://github.com/user-attachments/assets/701357f4-9645-43da-839c-6d05283a3f5a" />
 
