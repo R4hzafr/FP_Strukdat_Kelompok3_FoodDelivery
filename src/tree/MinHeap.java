@@ -111,4 +111,9 @@ public class MinHeap {
         enqueue(vipOrder);
         System.out.println(" VIP Order diprioritaskan!");
     }
+
+    
 }
+//  Urgent = 3
+//  High = 2
+//  Normal = 1
